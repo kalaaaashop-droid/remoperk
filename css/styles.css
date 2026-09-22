@@ -1,0 +1,140 @@
+/* Remoperk — estilos complementarios a Tailwind CSS */
+
+html {
+  scroll-padding-top: 5rem; /* evita que el navbar fijo tape las secciones al hacer scroll */
+}
+
+/* Navbar: sombra al hacer scroll (clase añadida por js/script.js) */
+#navbar.scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Enlaces de navegación */
+.nav-link {
+  color: #C9CFD8;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+.nav-link:hover {
+  color: #F5B301;
+}
+
+.nav-link-mobile {
+  display: block;
+  color: #C9CFD8;
+  font-weight: 500;
+  padding: 0.65rem 0.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.nav-link-mobile:hover {
+  color: #F5B301;
+}
+
+/* Chips de marcas dentro del panel del hero */
+.brand-chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-radius: 0.5rem;
+  padding: 1.1rem 0.5rem;
+  text-align: center;
+}
+
+/* Tarjetas de marcas */
+.brand-card {
+  background: #FFFFFF;
+  border: 1px solid #E7E9EC;
+  border-radius: 0.75rem;
+  padding: 1.75rem 1.25rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.brand-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(11, 30, 54, 0.08);
+  border-color: #F5B301;
+}
+.brand-icon {
+  width: 3.25rem;
+  height: 3.25rem;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0B1E36;
+  color: #F5B301;
+  border-radius: 9999px;
+}
+.brand-icon svg {
+  width: 1.6rem;
+  height: 1.6rem;
+}
+.brand-name {
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: #0B1E36;
+}
+.brand-desc {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: #5A6472;
+  line-height: 1.4;
+}
+
+/* Tarjetas de features ("Por qué elegirnos") */
+.feature-card {
+  background: #FFFFFF;
+  border: 1px solid #E7E9EC;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(11, 30, 54, 0.07);
+}
+.feature-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(245, 179, 1, 0.12);
+  color: #D69A00;
+  border-radius: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+.feature-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+.feature-title {
+  font-weight: 700;
+  color: #0B1E36;
+  font-size: 1rem;
+}
+.feature-desc {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: #5A6472;
+  line-height: 1.45;
+}
+
+/* Pulso suave para el botón flotante de WhatsApp */
+@keyframes pulse-slow {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 2.5s infinite;
+}

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remoperk | Repuestos Diésel en Valencia, Venezuela</title>
+  <meta name="description" content="Remoperk: repuestos diésel para motores, maquinaria pesada y plantas eléctricas en Valencia, Venezuela. Perkins, Emma, KMP Brand y Cummins. Cotiza por WhatsApp." />
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: {
+              DEFAULT: '#0B1E36',
+              light: '#132A4A',
+              dark: '#071120',
+            },
+            steel: {
+              DEFAULT: '#5A6472',
+              light: '#8B94A0',
+              dark: '#3B4149',
+            },
+            industrial: {
+              yellow: '#F5B301',
+              'yellow-dark': '#D69A00',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body class="bg-white text-navy font-sans antialiased">
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header id="navbar" class="fixed top-0 inset-x-0 z-50 bg-navy/95 backdrop-blur-sm transition-shadow duration-300">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 lg:h-20">
+
+        <!-- Logo -->
+        <a href="#inicio" class="flex items-center gap-2 shrink-0">
+          <svg class="w-8 h-8 lg:w-9 lg:h-9 text-industrial-yellow" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
+            <circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 5.5V8.5M12 15.5V18.5M18.5 12H15.5M8.5 12H5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+          <span class="text-white font-extrabold text-lg lg:text-xl tracking-wide">
+            REMO<span class="text-industrial-yellow">PERK</span>
+          </span>
+        </a>
+
+        <!-- Enlaces desktop -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#inicio" class="nav-link">Inicio</a>
+          <a href="#marcas" class="nav-link">Marcas</a>
+          <a href="#nosotros" class="nav-link">Sobre Nosotros</a>
+          <a href="#contacto" class="nav-link">Contacto</a>
+        </div>
+
+        <!-- CTA desktop -->
+        <a
+          href="https://wa.me/584144368106?text=Hola%20Remoperk%2C%20quiero%20cotizar%20repuestos%20di%C3%A9sel"
+          target="_blank" rel="noopener noreferrer"
+          class="hidden md:inline-flex items-center gap-2 bg-industrial-yellow hover:bg-industrial-yellow-dark text-navy font-bold text-sm px-5 py-2.5 rounded-md transition-colors duration-200"
+        >
+          Cotizar ahora
+        </a>
+
+        <!-- Botón menú móvil -->
+        <button id="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" class="md:hidden text-white p-2">
+          <svg id="icon-open" class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="w-7 h-7 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Menú móvil -->
+      <div id="mobile-menu" class="hidden md:hidden pb-5">
+        <div class="flex flex-col gap-1 pt-2 border-t border-white/10">
+          <a href="#inicio" class="nav-link-mobile">Inicio</a>
+          <a href="#marcas" class="nav-link-mobile">Marcas</a>
+          <a href="#nosotros" class="nav-link-mobile">Sobre Nosotros</a>
+          <a href="#contacto" class="nav-link-mobile">Contacto</a>
+          <a
+            href="https://wa.me/584144368106?text=Hola%20Remoperk%2C%20quiero%20cotizar%20repuestos%20di%C3%A9sel"
+            target="_blank" rel="noopener noreferrer"
+            class="mt-3 inline-flex justify-center items-center gap-2 bg-industrial-yellow text-navy font-bold text-sm px-5 py-3 rounded-md"
+          >
+            Cotizar por WhatsApp
+          </a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section id="inicio" class="relative pt-32 pb-20 lg:pt-44 lg:pb-32 bg-navy overflow-hidden">
+      <!-- Textura / patrón industrial de fondo -->
+      <div class="absolute inset-0 opacity-[0.06] pointer-events-none" aria-hidden="true">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="diagonalHatch" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="10" stroke="white" stroke-width="2"/>
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#diagonalHatch)" />
+        </svg>
+      </div>
+      <div class="absolute -right-24 -top-24 w-96 h-96 bg-industrial-yellow/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <span class="inline-block bg-industrial-yellow/10 text-industrial-yellow font-semibold text-xs tracking-widest uppercase px-3 py-1.5 rounded-full border border-industrial-yellow/30 mb-6">
+            Repuestos Diésel · Valencia, Venezuela
+          </span>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight tracking-tight">
+            La potencia de tu motor <span class="text-industrial-yellow">no se detiene</span>.
+          </h1>
+          <p class="mt-5 text-lg sm:text-xl text-steel-light leading-relaxed max-w-xl">
+            Repuestos diésel de alta calidad para motores, maquinaria pesada y plantas eléctricas.
+            Marcas Perkins, Emma, KMP Brand y Cummins, con disponibilidad inmediata en Valencia.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <a
+              href="https://wa.me/584144368106?text=Hola%20Remoperk%2C%20quiero%20cotizar%20repuestos%20di%C3%A9sel"
+              target="_blank" rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 bg-industrial-yellow hover:bg-industrial-yellow-dark text-navy font-bold text-base px-8 py-4 rounded-md shadow-lg shadow-industrial-yellow/20 transition-all duration-200 hover:-translate-y-0.5"
+            >
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.9 9.9 0 0 0 4.72 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.11c-.24.69-1.4 1.32-1.93 1.4-.49.08-1.1.11-1.78-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.08.99-2.36.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.23.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.54.33.07.12.07.68-.17 1.37z"/></svg>
+              Cotizar repuestos ahora
+            </a>
+            <a
+              href="#marcas"
+              class="inline-flex items-center justify-center gap-2 bg-transparent border-2 border-white/20 hover:border-industrial-yellow/60 text-white font-semibold text-base px-8 py-4 rounded-md transition-colors duration-200"
+            >
+              Ver marcas
+            </a>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-steel-light text-sm">
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-industrial-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Disponibilidad inmediata
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-industrial-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Asesoría técnica especializada
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-5 h-5 text-industrial-yellow shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Marcas originales
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel visual lateral -->
+        <div class="relative hidden lg:block">
+          <div class="bg-navy-light border border-white/10 rounded-2xl p-8 shadow-2xl">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="brand-chip">Perkins</div>
+              <div class="brand-chip">Cummins</div>
+              <div class="brand-chip">Emma</div>
+              <div class="brand-chip">KMP Brand</div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-white/10 flex items-center gap-3">
+              <svg class="w-10 h-10 text-industrial-yellow shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13l1-6a2 2 0 012-2h5l3 4h4a2 2 0 012 2v2M3 13v5a1 1 0 001 1h1m14-6v5a1 1 0 01-1 1h-1M3 13h18M7 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+              <p class="text-white text-sm leading-snug">
+                Motores, maquinaria pesada<br/>y plantas eléctricas
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MARCAS ===================== -->
+    <section id="marcas" class="py-20 lg:py-28 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-industrial-yellow-dark font-bold text-sm uppercase tracking-widest">Nuestras marcas</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-navy">
+            Distribuidores de las mejores marcas diésel
+          </h2>
+          <p class="mt-4 text-steel text-lg">
+            Trabajamos con las marcas más confiables del mercado para garantizar rendimiento y durabilidad en cada repuesto.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-6">
+
+          <article class="brand-card">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v4m0 12v4m10-10h-4M6 12H2m15.36-6.36l-2.83 2.83M9.47 14.53l-2.83 2.83m0-11.3l2.83 2.83m5.06 5.06l2.83 2.83M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
+            </div>
+            <h3 class="brand-name">Perkins</h3>
+            <p class="brand-desc">Motores y repuestos originales de alto rendimiento.</p>
+          </article>
+
+          <article class="brand-card">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13l1-6a2 2 0 012-2h5l3 4h4a2 2 0 012 2v2M3 13v5a1 1 0 001 1h1m14-6v5a1 1 0 01-1 1h-1M3 13h18M7 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z"/></svg>
+            </div>
+            <h3 class="brand-name">Cummins</h3>
+            <p class="brand-desc">Líder mundial en motores y componentes diésel.</p>
+          </article>
+
+          <article class="brand-card">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m14-6h2m-2 6h2M7 7h10v10H7V7z"/></svg>
+            </div>
+            <h3 class="brand-name">Emma</h3>
+            <p class="brand-desc">Repuestos de calidad para uso industrial exigente.</p>
+          </article>
+
+          <article class="brand-card">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="brand-name">KMP Brand</h3>
+            <p class="brand-desc">Alternativa confiable con excelente relación precio-calidad.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SOBRE NOSOTROS ===================== -->
+    <section id="nosotros" class="py-20 lg:py-28 bg-steel/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-14 items-center">
+
+        <div>
+          <span class="text-industrial-yellow-dark font-bold text-sm uppercase tracking-widest">Por qué elegirnos</span>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold text-navy leading-tight">
+            Respaldo técnico y repuestos listos cuando los necesitas
+          </h2>
+          <p class="mt-5 text-steel text-lg leading-relaxed">
+            En Remoperk entendemos que un motor detenido significa pérdidas. Por eso ofrecemos repuestos
+            diésel de calidad, asesoría técnica real y atención rápida para que tu maquinaria, generador
+            o vehículo pesado vuelva a funcionar sin demoras.
+          </p>
+
+          <a
+            href="https://wa.me/584144368106?text=Hola%20Remoperk%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+            target="_blank" rel="noopener noreferrer"
+            class="mt-8 inline-flex items-center gap-2 bg-navy hover:bg-navy-light text-white font-semibold text-sm px-6 py-3.5 rounded-md transition-colors duration-200"
+          >
+            Hablar con un asesor
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="feature-title">Disponibilidad inmediata</h3>
+            <p class="feature-desc">Inventario listo para entrega rápida en Valencia y alrededores.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a4 4 0 115.657 0M9 21h6"/></svg>
+            </div>
+            <h3 class="feature-title">Asesoría técnica</h3>
+            <p class="feature-desc">Te ayudamos a identificar el repuesto exacto para tu equipo.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3" stroke-width="1.5"/></svg>
+            </div>
+            <h3 class="feature-title">Ubicados en Valencia</h3>
+            <p class="feature-desc">Fácil acceso para talleres, transportistas e industrias de Carabobo.</p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="feature-title">Marcas confiables</h3>
+            <p class="feature-desc">Perkins, Emma, KMP Brand y Cummins, con garantía de calidad.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== CONTACTO / CTA FINAL ===================== -->
+    <section id="contacto" class="py-20 lg:py-28 bg-navy relative overflow-hidden">
+      <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-industrial-yellow/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white">
+          ¿Necesitas un repuesto diésel? Cotiza en minutos
+        </h2>
+        <p class="mt-4 text-steel-light text-lg max-w-2xl mx-auto">
+          Escríbenos por WhatsApp o correo electrónico y te ayudamos a encontrar la pieza correcta para tu motor, maquinaria o planta eléctrica.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="https://wa.me/584144368106?text=Hola%20Remoperk%2C%20quiero%20cotizar%20repuestos%20di%C3%A9sel"
+            target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 bg-industrial-yellow hover:bg-industrial-yellow-dark text-navy font-bold text-base px-8 py-4 rounded-md transition-colors duration-200"
+          >
+            WhatsApp: 0414-436-8106
+          </a>
+          <a
+            href="mailto:remoperk@hotmail.com"
+            class="inline-flex items-center justify-center gap-2 bg-white/5 border-2 border-white/20 hover:border-industrial-yellow/60 text-white font-semibold text-base px-8 py-4 rounded-md transition-colors duration-200"
+          >
+            remoperk@hotmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-navy-dark text-steel-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <svg class="w-7 h-7 text-industrial-yellow" viewBox="0 0 24 24" fill="none"><path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="text-white font-extrabold text-lg">REMO<span class="text-industrial-yellow">PERK</span></span>
+        </div>
+        <p class="text-sm leading-relaxed">
+          Repuestos diésel para motores, maquinaria pesada y plantas eléctricas en Valencia, Venezuela.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Ubicación</h4>
+        <p class="text-sm leading-relaxed flex gap-2">
+          <svg class="w-5 h-5 shrink-0 text-industrial-yellow" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3" stroke-width="1.5"/></svg>
+          Valencia, Estado Carabobo, Venezuela
+        </p>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Horario de atención</h4>
+        <ul class="text-sm space-y-1.5">
+          <li>Lunes a Viernes: 8:00 am – 5:00 pm</li>
+          <li>Sábados: 8:00 am – 1:00 pm</li>
+          <li>Domingos: Cerrado</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="text-white font-semibold mb-4 text-sm uppercase tracking-wide">Contacto</h4>
+        <ul class="text-sm space-y-3">
+          <li>
+            <a href="https://wa.me/584144368106" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-industrial-yellow transition-colors">
+              <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.9 9.9 0 0 0 4.72 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.11c-.24.69-1.4 1.32-1.93 1.4-.49.08-1.1.11-1.78-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.08.99-2.36.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.23.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.54.33.07.12.07.68-.17 1.37z"/></svg>
+              0414-436-8106
+            </a>
+          </li>
+          <li>
+            <a href="mailto:remoperk@hotmail.com" class="flex items-center gap-2 hover:text-industrial-yellow transition-colors">
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              remoperk@hotmail.com
+            </a>
+          </li>
+          <li>
+            <a href="https://instagram.com/remoperk" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-industrial-yellow transition-colors">
+              <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" stroke-width="1.5"/><circle cx="12" cy="12" r="4" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+              @remoperk
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-steel">
+        <p>&copy; <span id="year"></span> Remoperk. Todos los derechos reservados.</p>
+        <p>Valencia, Estado Carabobo, Venezuela</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===================== BOTONES FLOTANTES ===================== -->
+  <div class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-3">
+
+    <!-- Email flotante -->
+    <a
+      href="mailto:remoperk@hotmail.com"
+      aria-label="Escribir correo a Remoperk"
+      class="group flex items-center justify-center w-12 h-12 rounded-full bg-navy hover:bg-navy-light text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5"
+      title="remoperk@hotmail.com"
+    >
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+    </a>
+
+    <!-- WhatsApp flotante -->
+    <a
+      href="https://wa.me/584144368106?text=Hola%20Remoperk%2C%20quiero%20cotizar%20repuestos%20di%C3%A9sel"
+      target="_blank" rel="noopener noreferrer"
+      aria-label="Cotizar por WhatsApp"
+      class="flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] hover:bg-[#1ebe57] text-white shadow-xl transition-all duration-200 hover:-translate-y-0.5 animate-pulse-slow"
+      title="Cotizar por WhatsApp"
+    >
+      <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.27-1.38a9.9 9.9 0 0 0 4.72 1.2h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.11c-.24.69-1.4 1.32-1.93 1.4-.49.08-1.1.11-1.78-.11-.41-.13-.94-.3-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94 0-1.4.73-2.08.99-2.36.26-.28.57-.35.76-.35.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.14.07.14.12.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.19-.28.38-.23.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.54.33.07.12.07.68-.17 1.37z"/></svg>
+    </a>
+  </div>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
