@@ -61,8 +61,8 @@ html {
   border-color: #F5B301;
 }
 .brand-icon {
-  width: 3.25rem;
-  height: 3.25rem;
+  width: 4.5rem;
+  height: 4.5rem;
   margin: 0 auto 1rem;
   display: flex;
   align-items: center;
@@ -72,8 +72,22 @@ html {
   border-radius: 9999px;
 }
 .brand-icon svg {
-  width: 1.6rem;
-  height: 1.6rem;
+  width: 2rem;
+  height: 2rem;
+}
+
+/* Ícono de marca con logo real en vez de dibujo genérico */
+.brand-icon--logo {
+  background: #FFFFFF;
+  border: 1px solid #E7E9EC;
+  padding: 0.5rem;
+  overflow: hidden;
+}
+.brand-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 .brand-name {
   font-weight: 800;
