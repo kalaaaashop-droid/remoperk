@@ -325,48 +325,58 @@
           </p>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-6">
+        <div class="catalog-carousel">
+          <button type="button" id="catalogPrev" aria-label="Pieza anterior" class="catalog-arrow catalog-arrow-left">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
 
-          <article class="product-card">
-            <div class="product-img-wrap">
-              <img src="img/producto-housing-termostato-perkins.jpg" alt="Housing de termostato Perkins" loading="lazy" class="product-img" />
-            </div>
-            <h3 class="product-name">Housing de termostato</h3>
-            <p class="product-desc">Perkins</p>
-          </article>
+          <div id="catalogTrack" class="catalog-track">
 
-          <article class="product-card">
-            <div class="product-img-wrap">
-              <img src="img/producto-bomba-agua-john-deere-4045.jpg" alt="Bomba de agua John Deere 4045" loading="lazy" class="product-img" />
-            </div>
-            <h3 class="product-name">Bomba de agua</h3>
-            <p class="product-desc">John Deere 4045</p>
-          </article>
+            <article class="catalog-slide product-card w-56 sm:w-64 lg:w-72 shrink-0">
+              <div class="product-img-wrap">
+                <img src="img/producto-housing-termostato-perkins.jpg" alt="Housing de termostato Perkins" loading="lazy" class="product-img" />
+              </div>
+              <h3 class="product-name">Housing de termostato</h3>
+              <p class="product-desc">Perkins</p>
+            </article>
 
-          <article class="product-card">
-            <div class="product-img-wrap">
-              <img src="img/producto-camara-perkins-404.jpg" alt="Cámara Perkins 404" loading="lazy" class="product-img" />
-            </div>
-            <h3 class="product-name">Cámara</h3>
-            <p class="product-desc">Perkins 404</p>
-          </article>
+            <article class="catalog-slide product-card w-56 sm:w-64 lg:w-72 shrink-0">
+              <div class="product-img-wrap">
+                <img src="img/producto-bomba-agua-john-deere-4045.jpg" alt="Bomba de agua John Deere 4045" loading="lazy" class="product-img" />
+              </div>
+              <h3 class="product-name">Bomba de agua</h3>
+              <p class="product-desc">John Deere 4045</p>
+            </article>
 
-          <article class="product-card">
-            <div class="product-img-wrap">
-              <img src="img/producto-bomba-aceite-john-deere-4045.jpg" alt="Bomba de aceite John Deere 4045" loading="lazy" class="product-img" />
-            </div>
-            <h3 class="product-name">Bomba de aceite</h3>
-            <p class="product-desc">John Deere 4045</p>
-          </article>
+            <article class="catalog-slide product-card w-56 sm:w-64 lg:w-72 shrink-0">
+              <div class="product-img-wrap">
+                <img src="img/producto-camara-perkins-404.jpg" alt="Cámara Perkins 404" loading="lazy" class="product-img" />
+              </div>
+              <h3 class="product-name">Cámara</h3>
+              <p class="product-desc">Perkins 404</p>
+            </article>
 
-          <article class="product-card">
-            <div class="product-img-wrap">
-              <img src="img/producto-turbo-perkins-1103.jpg" alt="Turbo para motor Perkins 1103" loading="lazy" class="product-img" />
-            </div>
-            <h3 class="product-name">Turbo</h3>
-            <p class="product-desc">Motor Perkins 1103</p>
-          </article>
+            <article class="catalog-slide product-card w-56 sm:w-64 lg:w-72 shrink-0">
+              <div class="product-img-wrap">
+                <img src="img/producto-bomba-aceite-john-deere-4045.jpg" alt="Bomba de aceite John Deere 4045" loading="lazy" class="product-img" />
+              </div>
+              <h3 class="product-name">Bomba de aceite</h3>
+              <p class="product-desc">John Deere 4045</p>
+            </article>
 
+            <article class="catalog-slide product-card w-56 sm:w-64 lg:w-72 shrink-0">
+              <div class="product-img-wrap">
+                <img src="img/producto-turbo-perkins-1103.jpg" alt="Turbo para motor Perkins 1103" loading="lazy" class="product-img" />
+              </div>
+              <h3 class="product-name">Turbo</h3>
+              <p class="product-desc">Motor Perkins 1103</p>
+            </article>
+
+          </div>
+
+          <button type="button" id="catalogNext" aria-label="Siguiente pieza" class="catalog-arrow catalog-arrow-right">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
         </div>
 
         <div class="mt-10 text-center">

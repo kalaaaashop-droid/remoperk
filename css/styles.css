@@ -175,6 +175,70 @@ html {
   padding: 0 0.5rem;
 }
 
+/* Carrusel del catálogo: fila deslizable con efecto de foco central */
+.catalog-carousel {
+  position: relative;
+}
+.catalog-track {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.catalog-track::-webkit-scrollbar {
+  display: none;
+}
+.catalog-slide {
+  scroll-snap-align: center;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  will-change: transform, opacity;
+}
+.catalog-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 9999px;
+  background: #FFFFFF;
+  border: 1px solid #E7E9EC;
+  color: #0B1E36;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 16px rgba(11, 30, 54, 0.12);
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  z-index: 10;
+}
+.catalog-arrow:hover {
+  background: #0B1E36;
+  color: #F5B301;
+  border-color: #0B1E36;
+}
+.catalog-arrow-left {
+  left: -0.25rem;
+}
+.catalog-arrow-right {
+  right: -0.25rem;
+}
+@media (min-width: 640px) {
+  .catalog-arrow {
+    display: flex;
+  }
+}
+@media (min-width: 1024px) {
+  .catalog-arrow-left {
+    left: -1.25rem;
+  }
+  .catalog-arrow-right {
+    right: -1.25rem;
+  }
+}
+
 /* Pulso suave para el botón flotante de WhatsApp */
 @keyframes pulse-slow {
   0%, 100% {
