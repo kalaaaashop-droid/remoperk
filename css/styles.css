@@ -96,12 +96,6 @@ html {
   font-size: 1.05rem;
   color: #0B1E36;
 }
-.brand-desc {
-  margin-top: 0.4rem;
-  font-size: 0.85rem;
-  color: #5A6472;
-  line-height: 1.4;
-}
 
 /* Tarjetas de features ("Por qué elegirnos") */
 .feature-card {
