@@ -21,6 +21,7 @@ const CUELLO: Record<Escote, string> = {
   cruzado: "L186,112 L170,34 Z",
   mao: "Q200,52 170,34 Z",
   "mao-pico": "L212,38 L200,102 L188,38 Z",
+  "alto-pico": "L200,98 L172,34 Z",
 };
 
 const PIERNAS: Record<Pantalon, string> = {
@@ -47,6 +48,15 @@ function Silueta({ escote, manga, pantalon }: PropsSilueta) {
       {/* Casaca */}
       <path d={`${CASACA[manga]} ${CUELLO[escote]}`} />
       {escote === "mao" && <path d="M166,34 Q200,52 234,34 L233,24 Q200,42 167,24 Z" />}
+      {escote === "alto-pico" && (
+        <>
+          {/* Cuello alto: sube por detrás de la nuca y baja cerrándose en pico */}
+          <path d="M166,16 Q200,8 234,16 L232,24 Q200,18 168,24 Z" />
+          <path d="M183,19 Q200,15 217,19 L207,50 Q200,45 193,50 Z" />
+          <path d="M172,34 L166,16 L184,20 L200,98 Z" />
+          <path d="M228,34 L234,16 L216,20 L200,98 Z" />
+        </>
+      )}
       {escote === "mao-pico" && (
         <>
           {/* Cuello mao abierto: dos piezas levantadas a cada lado de la abertura */}
@@ -75,6 +85,19 @@ function Detalles({ escote, manga, pantalon }: PropsSilueta) {
     <g strokeLinecap="round" strokeLinejoin="round">
       {/* Cuello */}
       {escote === "pico" && <path d="M174,37 L200,92 L226,37" {...pespunte} />}
+      {escote === "alto-pico" && (
+        <>
+          {/* Interior del cuello (parte trasera vista por dentro), más oscuro */}
+          <path d="M183,19 Q200,15 217,19 L207,50 Q200,45 193,50 Z" fill="rgba(0,0,0,0.22)" />
+          {/* Borde y doblez del cuello alto */}
+          <path d="M184,20 L200,98 L216,20" {...costura} />
+          <path d="M172,34 L200,98 L228,34" {...costura} />
+          <path d="M187,23 L200,90 L213,23" {...pespunte} />
+          {/* Bolsillo de parche en el pecho */}
+          <rect x={214} y={130} width={36} height={40} rx={2} {...costura} />
+          <path d="M216,135 L248,135" {...pespunte} />
+        </>
+      )}
       {escote === "mao-pico" && (
         <>
           {/* Tapetas pespunteadas a cada lado de la abertura */}
@@ -133,12 +156,13 @@ function Detalles({ escote, manga, pantalon }: PropsSilueta) {
       {/* Cintura */}
       <path d="M142,276 L258,276" {...costura} />
       <path d="M143,270 L257,270" {...pespunte} />
-      {pantalon === "ancho" &&
+      {(pantalon === "ancho" || pantalon === "recto") &&
         // Fruncido de la cintura elástica
         Array.from({ length: 14 }, (_, i) => 148 + i * 8).map((x) => (
-          <path key={x} d={`M${x},264 L${x + 1},275`} stroke="rgba(0,0,0,0.14)" strokeWidth={0.8} />
+          <path key={x} d={`M${x},264 L${x + 1},${pantalon === "recto" ? 282 : 275}`} stroke="rgba(0,0,0,0.14)" strokeWidth={0.8} />
         ))}
-      {pantalon !== "cargo" && (
+      {pantalon === "recto" && <path d="M142,284 L258,284" {...costura} />}
+      {(pantalon === "jogger" || pantalon === "ancho") && (
         <>
           <path d="M196,276 Q193,292 190,300" {...costura} />
           <path d="M204,276 Q207,292 210,300" {...costura} />
@@ -168,7 +192,7 @@ function Detalles({ escote, manga, pantalon }: PropsSilueta) {
           <path d="M150,280 Q160,300 144,310 M250,280 Q240,300 256,310" {...costura} />
         </>
       ) : (
-        <path d="M150,280 Q162,300 140,312 M250,280 Q238,300 260,312" {...costura} />
+        <path d="M150,288 Q162,308 138,322 M250,288 Q238,308 262,322" {...costura} />
       )}
       {pantalon === "jogger" && <path d="M149,508 L187,508 M213,508 L251,508" {...pespunte} />}
     </g>
@@ -191,6 +215,8 @@ export function VistaUniforme({ escote, manga, pantalon, color, textura, bordado
   // El bordado va en el pecho izquierdo de quien lo lleva (derecha de la imagen).
   // Con manga kimono la sisa curva entra más en el pecho, así que se acerca al centro.
   const xBordado = manga === "kimono" ? 228 : 234;
+  // Con bolsillo de pecho el bordado va justo encima del bolsillo.
+  const yBordado = escote === "alto-pico" ? 116 : 150;
 
   return (
     <svg viewBox="0 0 400 540" role="img" aria-label="Vista previa del uniforme personalizado" className="h-full w-full">
@@ -239,14 +265,14 @@ export function VistaUniforme({ escote, manga, pantalon, color, textura, bordado
           style={{ fill: bordado.hilo, transition: "fill 600ms var(--ease-seda)" }}
         >
           {nombre && (
-            <text x={xBordado} y={150} style={{ ...fuente, fontSize: tamano }}>
+            <text x={xBordado} y={yBordado} style={{ ...fuente, fontSize: tamano }}>
               {nombre}
             </text>
           )}
           {bordado.especialidad && (
             <text
               x={xBordado}
-              y={nombre ? 163 : 152}
+              y={nombre ? yBordado + 11 : yBordado + 2}
               style={{ fontFamily: "var(--font-sans)", fontSize: 6, letterSpacing: 1.6, textTransform: "uppercase" }}
             >
               {bordado.especialidad}

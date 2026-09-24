@@ -4,7 +4,7 @@
  * Todos los precios están en dólares (USD).
  */
 
-export type Escote = "pico" | "cruzado" | "mao" | "mao-pico";
+export type Escote = "pico" | "cruzado" | "mao" | "mao-pico" | "alto-pico";
 export type Manga = "montada" | "kimono";
 export type Pantalon = "recto" | "jogger" | "cargo" | "ancho";
 
@@ -75,12 +75,12 @@ export const MODELOS: Modelo[] = [
   {
     id: "nomada",
     nombre: "Nómada",
-    descripcion: "Cuello mao y pantalón cargo. Estructurado, funcional y con más almacenaje.",
-    escote: "mao",
-    manga: "montada",
-    pantalon: "cargo",
+    descripcion: "Cuello alto en pico, manga kimono y pantalón recto de cintura elástica. Moderno y cómodo.",
+    escote: "alto-pico",
+    manga: "kimono",
+    pantalon: "recto",
     disponibilidad: "bajo-pedido",
-    detalles: ["Cuello con tapeta", "6 bolsillos funcionales", "Presilla para identificación"],
+    detalles: ["Cuello alto que enmarca el rostro", "Bolsillo de parche en el pecho", "Cintura elástica ancha con bolsillos laterales"],
   },
 ];
 
