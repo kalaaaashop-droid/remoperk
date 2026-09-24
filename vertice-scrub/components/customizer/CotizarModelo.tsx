@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { WHATSAPP_PEDIDOS } from "@/lib/catalogo";
+import { WHATSAPP_PEDIDOS, WHATSAPP_VISIBLE } from "@/lib/catalogo";
 
 const MAX_DESCRIPCION = 240;
 
@@ -59,7 +59,8 @@ export function CotizarModelo() {
         Cotizar mi modelo por WhatsApp
       </a>
       <p className="mt-3 text-center text-[0.7rem] leading-snug text-piedra">
-        En el chat, adjunta tu imagen de referencia. La cotización es aparte de este pedido.
+        En el chat, adjunta tu imagen de referencia. La cotización es aparte de este pedido. WhatsApp:{" "}
+        <span className="font-medium text-topo tabular-nums select-all">{WHATSAPP_VISIBLE}</span>
       </p>
     </aside>
   );

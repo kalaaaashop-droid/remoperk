@@ -198,7 +198,9 @@ export const BORDADO = {
 } as const;
 
 /** Número de WhatsApp que recibe los pedidos (formato internacional, sin "+"). */
-export const WHATSAPP_PEDIDOS = "34600000000";
+export const WHATSAPP_PEDIDOS = "584220250930";
+/** El mismo número, como se muestra a las clientas. */
+export const WHATSAPP_VISIBLE = "0422-025-0930";
 
 export const formatearPrecio = (valor: number) =>
   new Intl.NumberFormat("es-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(valor);

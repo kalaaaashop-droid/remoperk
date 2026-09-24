@@ -1,3 +1,5 @@
+import { WHATSAPP_PEDIDOS, WHATSAPP_VISIBLE } from "@/lib/catalogo";
+
 export function Pie() {
   return (
     <footer id="contacto" className="border-t border-linea bg-marfil">
@@ -14,7 +16,15 @@ export function Pie() {
           <p>Lunes a viernes · 10:00–18:00</p>
         </div>
         <div className="text-sm text-topo">
-          <p className="eyebrow mb-3">Síguenos</p>
+          <p className="eyebrow mb-3">Contacto</p>
+          <a
+            href={`https://wa.me/${WHATSAPP_PEDIDOS}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block transition-colors hover:text-grafito"
+          >
+            WhatsApp · <span className="tabular-nums">{WHATSAPP_VISIBLE}</span>
+          </a>
           <a href="https://instagram.com/vertice.scrub" className="block transition-colors hover:text-grafito">
             Instagram · @vertice.scrub
           </a>

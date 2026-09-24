@@ -1,4 +1,4 @@
-import { WHATSAPP_PEDIDOS, formatearPrecio } from "@/lib/catalogo";
+import { WHATSAPP_PEDIDOS, WHATSAPP_VISIBLE, formatearPrecio } from "@/lib/catalogo";
 import { mensajePedido, type Resumen, type Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -77,7 +77,10 @@ export function PanelResumen({ seleccion, resumen }: Props) {
           <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.3" />
         </svg>
       </a>
-      <p className="mt-3 text-center text-[0.7rem] text-piedra">Te confirmamos disponibilidad y pago por WhatsApp.</p>
+      <p className="mt-3 text-center text-[0.7rem] text-piedra">
+        Te confirmamos disponibilidad y pago por WhatsApp:{" "}
+        <span className="font-medium text-topo tabular-nums select-all">{WHATSAPP_VISIBLE}</span>
+      </p>
     </div>
   );
 }
