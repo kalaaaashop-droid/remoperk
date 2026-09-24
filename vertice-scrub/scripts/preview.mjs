@@ -26,7 +26,10 @@ const { outputFiles } = await build({
 });
 
 const css = readFileSync("preview-dist/app.css", "utf8");
-const js = outputFiles[0].text.replace(/<\/script/gi, "<\\/script");
+const js = outputFiles[0].text
+  .replace(/<\/script/gi, "<\\/script")
+  // Las fotos de public/ van incrustadas para que el HTML sea un único archivo
+  .replace(/"\/(modelos\/[\w.-]+\.webp)"/g, (_, ruta) => `"data:image/webp;base64,${readFileSync(`public/${ruta}`).toString("base64")}"`);
 
 const html = `<title>Vértice.scrub</title>
 <meta name="description" content="Configurador de uniformes médicos Vértice.scrub">

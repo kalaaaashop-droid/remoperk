@@ -18,6 +18,15 @@ export interface Modelo {
   disponibilidad: "bajo-pedido" | "edicion-limitada";
   unidades?: number; // solo ediciones limitadas
   detalles: string[];
+  /** Foto recortada y recoloreable (sustituye al dibujo). Se genera con scripts/recortar-foto.py. */
+  foto?: FotoModelo;
+}
+
+export interface FotoModelo {
+  src: string;
+  ancho: number; // px de la imagen, para mantener su proporción
+  alto: number;
+  bordado: { x: number; y: number }; // posición del nombre bordado, en px de la imagen
 }
 
 export interface Color {
@@ -64,13 +73,14 @@ export const MODELOS: Modelo[] = [
   {
     id: "solsticio",
     nombre: "Solsticio",
-    descripcion: "Escote cruzado y jogger con puño. Silueta fluida para jornadas largas.",
-    escote: "cruzado",
-    manga: "montada",
-    pantalon: "jogger",
+    descripcion: "Cuello alto en pico, bolsillo de pecho y pantalón de pretina elástica. Nuestra pieza de lanzamiento.",
+    escote: "alto-pico",
+    manga: "kimono",
+    pantalon: "recto",
     disponibilidad: "edicion-limitada",
     unidades: 40,
-    detalles: ["Cruce asimétrico", "Puño elástico en tobillo", "Bolsillo portabolígrafos"],
+    detalles: ["Cuello alto en pico", "Bolsillo de parche en el pecho", "Pretina elástica fruncida"],
+    foto: { src: "/modelos/solsticio.webp", ancho: 392, alto: 848, bordado: { x: 252, y: 150 } },
   },
   {
     id: "nomada",

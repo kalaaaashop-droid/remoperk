@@ -10,6 +10,7 @@ import { SelectorBordado } from "./SelectorBordado";
 import { SelectorModelo } from "./SelectorModelo";
 import { SelectorTalla } from "./SelectorTalla";
 import { SelectorTela } from "./SelectorTela";
+import { FotoUniforme } from "./FotoUniforme";
 import { VistaUniforme } from "./VistaUniforme";
 
 const PASOS = [
@@ -36,19 +37,33 @@ export function Configurador() {
             {/* Arco decorativo detrás de la prenda */}
             <div aria-hidden className="absolute inset-x-8 top-8 bottom-24 hidden rounded-t-full bg-marfil/70 lg:block" />
             <div className="relative h-[30vh] max-h-72 min-h-44 w-2/5 shrink-0 px-2 py-3 lg:mx-auto lg:aspect-[4/5] lg:h-auto lg:max-h-none lg:w-full lg:max-w-md lg:px-6 lg:pt-8 lg:pb-0">
-              <VistaUniforme
-                escote={modelo.escote}
-                manga={modelo.manga}
-                pantalon={modelo.pantalon}
-                color={color.hex}
-                textura={tela.textura}
-                bordado={{
-                  nombre: seleccion.bordado.nombre.trim(),
-                  especialidad: seleccion.bordado.especialidad,
-                  hilo: resumen.hilo.hex,
-                  tipografia: resumen.tipografia.id,
-                }}
-              />
+              {modelo.foto ? (
+                <FotoUniforme
+                  foto={modelo.foto}
+                  nombreModelo={modelo.nombre}
+                  color={color.hex}
+                  bordado={{
+                    nombre: seleccion.bordado.nombre.trim(),
+                    especialidad: seleccion.bordado.especialidad,
+                    hilo: resumen.hilo.hex,
+                    claseFuente: resumen.tipografia.clase,
+                  }}
+                />
+              ) : (
+                <VistaUniforme
+                  escote={modelo.escote}
+                  manga={modelo.manga}
+                  pantalon={modelo.pantalon}
+                  color={color.hex}
+                  textura={tela.textura}
+                  bordado={{
+                    nombre: seleccion.bordado.nombre.trim(),
+                    especialidad: seleccion.bordado.especialidad,
+                    hilo: resumen.hilo.hex,
+                    tipografia: resumen.tipografia.id,
+                  }}
+                />
+              )}
             </div>
             <div className="relative flex min-w-0 flex-1 flex-col gap-3 py-4 pr-4 lg:flex-row lg:items-end lg:justify-between lg:px-10 lg:pt-2 lg:pb-8">
               <div className="min-w-0">
