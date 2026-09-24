@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function PanelResumen({ seleccion, resumen }: Props) {
-  const { modelo, tela, color, bota, lineas, total } = resumen;
+  const { modelo, tela, color, bota, pretina, lineas, total } = resumen;
   const detalle = seleccion.bordado.trim();
 
   const filas: [string, string][] = [
@@ -15,7 +15,7 @@ export function PanelResumen({ seleccion, resumen }: Props) {
     ["Tela", tela.nombre],
     ["Color", color.nombre],
     ["Talla", seleccion.tallaId],
-    ["Pantalón", bota.nombre],
+    ["Pantalón", pretina ? `${bota.nombre} · ${pretina.nombre}` : bota.nombre],
     ["Bordado personalizado", detalle || "Sin bordado"],
   ];
 

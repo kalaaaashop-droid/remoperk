@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type Dispatch } from "react";
-import { BOTAS, RECARGO_TALLA_GRANDE, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
+import { BOTAS, MODELOS, PRETINAS, RECARGO_TALLA_GRANDE, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
 import type { Accion, Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -96,6 +96,16 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
         valor={seleccion.botaId}
         onChange={(id) => dispatch({ tipo: "bota", id })}
       />
+      {MODELOS.find((m) => m.id === seleccion.modeloId)?.eligePretina && (
+        <div className="animate-aparecer">
+          <GrupoAjuste
+            titulo="Pretina · elige arruchada o lisa"
+            opciones={PRETINAS}
+            valor={seleccion.pretinaId}
+            onChange={(id) => dispatch({ tipo: "pretina", id })}
+          />
+        </div>
+      )}
     </div>
   );
 }

@@ -22,6 +22,8 @@ export interface Modelo {
   foto?: FotoModelo;
   /** Color con el que se muestra el modelo al elegirlo (id de un color de cualquier tela). */
   colorInicial?: string;
+  /** El pantalón de este modelo se puede pedir con pretina arruchada o lisa. */
+  eligePretina?: boolean;
 }
 
 export interface FotoModelo {
@@ -89,12 +91,14 @@ export const MODELOS: Modelo[] = [
   {
     id: "nomada",
     nombre: "Nómada",
-    descripcion: "Cuello alto en pico, manga kimono y pantalón recto de cintura elástica. Moderno y cómodo.",
-    escote: "alto-pico",
+    descripcion: "Cuello mao delgado abierto en pico y manga kimono. Pantalón con pretina arruchada o lisa, a tu elección.",
+    escote: "mao-pico",
     manga: "kimono",
     pantalon: "recto",
     disponibilidad: "bajo-pedido",
-    detalles: ["Cuello alto que enmarca el rostro", "Bolsillo de parche en el pecho", "Cintura elástica ancha con bolsillos laterales"],
+    detalles: ["Cuello mao delgado", "Manga kimono sin costura de hombro", "Pretina arruchada o lisa, a elegir"],
+    foto: { src: "/modelos/nomada.webp", ancho: 798, alto: 1060 },
+    eligePretina: true,
   },
 ];
 
@@ -186,6 +190,12 @@ export type Bota = "ancha" | "recta";
 export const BOTAS: (OpcionAjuste & { id: Bota })[] = [
   { id: "ancha", nombre: "Bota ancha", descripcion: "Pierna amplia con caída fluida.", recargo: 0 },
   { id: "recta", nombre: "Bota recta", descripcion: "Pierna recta de ancho clásico.", recargo: 0 },
+];
+
+/** Acabado de la pretina (cintura del pantalón), para los modelos que lo permiten. */
+export const PRETINAS: OpcionAjuste[] = [
+  { id: "arruchada", nombre: "Pretina arruchada", descripcion: "Elástico fruncido, cómodo y ajustable.", recargo: 0 },
+  { id: "lisa", nombre: "Pretina lisa", descripcion: "Pretina plana, de acabado más limpio.", recargo: 0 },
 ];
 
 /** Bota con la que se muestra cada modelo al elegirlo. */

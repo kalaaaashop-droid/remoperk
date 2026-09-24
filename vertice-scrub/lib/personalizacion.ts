@@ -1,6 +1,7 @@
 import {
   BORDADO,
   BOTAS,
+  PRETINAS,
   botaDelModelo,
   MODELOS,
   TALLAS,
@@ -18,6 +19,7 @@ export interface Seleccion {
   colorId: string;
   tallaId: string;
   botaId: string;
+  pretinaId: string; // solo cuenta en modelos con eligePretina
   bordado: string; // descripción libre del bordado; se cotiza aparte
 }
 
@@ -27,6 +29,7 @@ export type Accion =
   | { tipo: "color"; id: string }
   | { tipo: "talla"; id: string }
   | { tipo: "bota"; id: string }
+  | { tipo: "pretina"; id: string }
   | { tipo: "bordado"; valor: string };
 
 export const seleccionInicial: Seleccion = {
@@ -35,6 +38,7 @@ export const seleccionInicial: Seleccion = {
   colorId: "verde-oliva",
   tallaId: "M",
   botaId: botaDelModelo(MODELOS[0]),
+  pretinaId: "arruchada",
   bordado: "",
 };
 
@@ -61,6 +65,8 @@ export function reducer(estado: Seleccion, accion: Accion): Seleccion {
       return { ...estado, tallaId: accion.id };
     case "bota":
       return { ...estado, botaId: accion.id };
+    case "pretina":
+      return { ...estado, pretinaId: accion.id };
     case "bordado":
       return { ...estado, bordado: accion.valor.slice(0, BORDADO.maxDetalle) };
   }
@@ -80,6 +86,7 @@ export interface Resumen {
   tela: Tela;
   color: Color;
   bota: OpcionAjuste;
+  pretina: OpcionAjuste | null; // null si el modelo no ofrece elegirla
   lineas: LineaPrecio[];
   total: number;
 }
@@ -90,6 +97,7 @@ export function resumir(s: Seleccion): Resumen {
   const tela = buscar(TELAS, s.telaId);
   const color = buscar(tela.colores, s.colorId);
   const bota = buscar(BOTAS, s.botaId);
+  const pretina = modelo.eligePretina ? buscar(PRETINAS, s.pretinaId) : null;
 
   const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre} · ${tela.nombre}`, importe: tela.precio }];
   // Talla grande (2XL en adelante)
@@ -101,6 +109,7 @@ export function resumir(s: Seleccion): Resumen {
     tela,
     color,
     bota,
+    pretina,
     lineas,
     total: lineas.reduce((suma, l) => suma + l.importe, 0),
   };
@@ -116,7 +125,7 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
     `• Modelo: ${r.modelo.nombre}`,
     `• Tela: ${r.tela.nombre} — ${r.color.nombre}`,
     `• Talla: ${s.tallaId}`,
-    `• Pantalón: ${r.bota.nombre}`,
+    `• Pantalón: ${r.bota.nombre}${r.pretina ? ` · ${r.pretina.nombre}` : ""}`,
     `• Bordado personalizado: ${bordado ? `${bordado} (a cotizar)` : "Sin bordado"}`,
     "",
     `Total estimado: ${formatearPrecio(r.total)}${bordado ? " + bordado personalizado a cotizar" : ""}`,

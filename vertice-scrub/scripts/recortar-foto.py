@@ -9,9 +9,11 @@ Además:
 Uso:
   python3 scripts/recortar-foto.py foto.png salida.webp --tono 150 2 --caderas 748 905 --enderezar   (Almendra, rosa)
   python3 scripts/recortar-foto.py foto.png salida.webp --tono 120 155                                (Aurora, morado)
+  python3 scripts/recortar-foto.py foto.png salida.webp --tono 165 5 --saturacion 90 --incluir-entre 1090 1280   (Nómada, vino)
 --tono: rango de tono de la tela en OpenCV (0-179); si el inicio es mayor que el fin, el rango da la vuelta por el rojo.
 --caderas: filas (px) donde rellenar huecos de manos en los laterales del pantalón.
 --enderezar: centra cada fila sobre un eje vertical común.
+--incluir-entre: filas donde se incluye lo que hay entre los bordes (cordones de otro color); se tiñen con la prenda.
 Requiere: pip install opencv-python-headless numpy scipy
 """
 import argparse
@@ -25,6 +27,8 @@ ap.add_argument("--tono", nargs=2, type=int, default=[150, 2])
 ap.add_argument("--saturacion", type=int, default=55)
 ap.add_argument("--caderas", nargs=2, type=int)
 ap.add_argument("--enderezar", action="store_true")
+ap.add_argument("--incluir-entre", nargs=2, type=int, metavar=("Y0", "Y1"),
+                help="filas donde se incluye todo lo que quede entre los bordes de la prenda (p. ej. un cordón blanco)")
 args = ap.parse_args()
 
 im = cv2.imread(args.foto)
@@ -53,6 +57,12 @@ for y in range(cad0, cad1):
 if args.caderas:
     for arr in (L, R):
         arr[cad0:cad1] = np.linspace(arr[cad0 - 1], arr[cad1], cad1 - cad0)
+
+# 2b. Incluir lo que quede entre los bordes (cordón blanco): conserva su luz y se tiñe como la tela
+if args.incluir_entre:
+    for y in range(max(args.incluir_entre[0], y0), min(args.incluir_entre[1], y1)):
+        if not np.isnan(L[y]):
+            m[y, int(L[y]):int(R[y]) + 1] = True
 
 # 3. Rellenar con tela todo lo que quede dentro de los laterales en la cadera
 relleno = np.zeros_like(m)
