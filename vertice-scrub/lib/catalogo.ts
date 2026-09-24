@@ -47,11 +47,12 @@ export interface Tela {
   colores: Color[];
 }
 
+/** Tabla de medidas universales de Vértice.scrub (contornos en cm). */
 export interface Talla {
   id: string;
-  pecho: [number, number]; // cm
-  cintura: [number, number];
-  cadera: [number, number];
+  busto: number;
+  cadera: number;
+  cintura: number;
 }
 
 export interface OpcionAjuste {
@@ -133,14 +134,14 @@ export const TELAS: Tela[] = [
   },
 ];
 
-/** Tabla de medidas corporales (no de la prenda), en centímetros. */
 export const TALLAS: Talla[] = [
-  { id: "XS", pecho: [78, 82], cintura: [60, 64], cadera: [86, 90] },
-  { id: "S", pecho: [83, 87], cintura: [65, 69], cadera: [91, 95] },
-  { id: "M", pecho: [88, 93], cintura: [70, 75], cadera: [96, 101] },
-  { id: "L", pecho: [94, 100], cintura: [76, 82], cadera: [102, 108] },
-  { id: "XL", pecho: [101, 107], cintura: [83, 89], cadera: [109, 115] },
-  { id: "XXL", pecho: [108, 115], cintura: [90, 97], cadera: [116, 123] },
+  { id: "S", busto: 90, cadera: 94, cintura: 66 },
+  { id: "M", busto: 94, cadera: 98, cintura: 72 },
+  { id: "L", busto: 98, cadera: 102, cintura: 74 },
+  { id: "XL", busto: 102, cadera: 106, cintura: 78 },
+  { id: "2XL", busto: 108, cadera: 112, cintura: 82 },
+  { id: "3XL", busto: 114, cadera: 118, cintura: 94 },
+  { id: "4XL", busto: 120, cadera: 124, cintura: 100 },
 ];
 
 export type Bota = "ancha" | "recta";

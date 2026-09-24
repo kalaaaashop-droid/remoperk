@@ -10,17 +10,15 @@ interface Props {
 }
 
 const CAMPOS_MEDIDA: { campo: keyof Medidas; etiqueta: string; ayuda: string }[] = [
-  { campo: "pecho", etiqueta: "Pecho", ayuda: "Por la parte más prominente, cinta horizontal." },
+  { campo: "busto", etiqueta: "Busto", ayuda: "Por la parte más prominente, cinta horizontal." },
   { campo: "cintura", etiqueta: "Cintura", ayuda: "En la parte más estrecha, sin apretar." },
   { campo: "cadera", etiqueta: "Cadera", ayuda: "Por la parte más ancha, pies juntos." },
   { campo: "estatura", etiqueta: "Estatura", ayuda: "Sin calzado, de pie contra la pared." },
 ];
 
-const rango = ([a, b]: [number, number]) => `${a}–${b}`;
-
 export function SelectorTalla({ seleccion, dispatch }: Props) {
   const [guiaAbierta, setGuiaAbierta] = useState(false);
-  const sugerida = tallaSugerida(Number(seleccion.medidas.pecho));
+  const sugerida = tallaSugerida(Number(seleccion.medidas.busto));
 
   return (
     <div className="space-y-8">
@@ -77,14 +75,14 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
           </div>
           {sugerida && (
             <p className="animate-aparecer rounded-xl bg-arena/60 px-4 py-3 text-sm">
-              Por tu contorno de pecho, tu referencia sería una <strong>{sugerida}</strong>. Ajustaremos el resto del
+              Por tu contorno de busto, tu referencia sería una <strong>{sugerida}</strong>. Ajustaremos el resto del
               patrón a tus medidas.
             </p>
           )}
         </div>
       ) : (
         <div key="estandar" className="animate-aparecer space-y-4">
-          <div role="radiogroup" aria-label="Talla" className="grid grid-cols-6 gap-2">
+          <div role="radiogroup" aria-label="Talla" className="grid grid-cols-7 gap-1.5 sm:gap-2">
             {TALLAS.map((t) => (
               <button
                 key={t.id}
@@ -92,7 +90,7 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
                 role="radio"
                 aria-checked={t.id === seleccion.tallaId}
                 onClick={() => dispatch({ tipo: "talla", id: t.id })}
-                className="opcion py-3.5 text-center text-sm font-medium"
+                className="opcion px-0 py-3.5 text-center text-xs font-medium sm:text-sm"
               >
                 {t.id}
               </button>
@@ -123,13 +121,13 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
             <div className="overflow-hidden">
               <div className="overflow-x-auto rounded-2xl border border-linea bg-marfil">
                 <table className="w-full min-w-[20rem] text-sm">
-                  <caption className="sr-only">Medidas corporales en centímetros</caption>
+                  <caption className="sr-only">Tabla de medidas universales, contornos en centímetros</caption>
                   <thead>
                     <tr className="text-left text-xs text-topo">
                       <th className="px-4 py-3 font-medium">Talla</th>
-                      <th className="px-4 py-3 font-medium">Pecho</th>
-                      <th className="px-4 py-3 font-medium">Cintura</th>
+                      <th className="px-4 py-3 font-medium">Busto</th>
                       <th className="px-4 py-3 font-medium">Cadera</th>
+                      <th className="px-4 py-3 font-medium">Cintura</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -141,16 +139,16 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
                         }`}
                       >
                         <td className="px-4 py-2.5">{t.id}</td>
-                        <td className="px-4 py-2.5">{rango(t.pecho)}</td>
-                        <td className="px-4 py-2.5">{rango(t.cintura)}</td>
-                        <td className="px-4 py-2.5">{rango(t.cadera)}</td>
+                        <td className="px-4 py-2.5 tabular-nums">{t.busto}</td>
+                        <td className="px-4 py-2.5 tabular-nums">{t.cadera}</td>
+                        <td className="px-4 py-2.5 tabular-nums">{t.cintura}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
               <p className="mt-3 text-xs leading-relaxed text-piedra">
-                Medidas del cuerpo, no de la prenda. Si estás entre dos tallas, elige la mayor.
+                Contornos en centímetros. Si estás entre dos tallas, elige la mayor.
               </p>
             </div>
           </div>

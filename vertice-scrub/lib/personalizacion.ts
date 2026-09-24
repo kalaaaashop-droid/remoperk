@@ -14,7 +14,7 @@ import {
 } from "./catalogo";
 
 export interface Medidas {
-  pecho: string;
+  busto: string;
   cintura: string;
   cadera: string;
   estatura: string;
@@ -53,7 +53,7 @@ export const seleccionInicial: Seleccion = {
   colorId: TELAS[0].colores[1].id,
   tallaId: "M",
   aMedida: false,
-  medidas: { pecho: "", cintura: "", cadera: "", estatura: "" },
+  medidas: { busto: "", cintura: "", cadera: "", estatura: "" },
   botaId: botaDelModelo(MODELOS[0]),
   bordado: { nombre: "", especialidad: "", detalle: "", hiloId: BORDADO.hilos[0].id, tipografiaId: BORDADO.tipografias[0].id },
 };
@@ -143,17 +143,17 @@ export function resumir(s: Seleccion): Resumen {
   };
 }
 
-/** Sugiere una talla a partir del contorno de pecho (cm). */
-export function tallaSugerida(pecho: number): string | null {
-  if (!pecho) return null;
-  const talla = TALLAS.find((t) => pecho <= t.pecho[1]) ?? TALLAS[TALLAS.length - 1];
+/** Sugiere una talla a partir del contorno de busto (cm): la primera que lo cubre; entre dos tallas, la mayor. */
+export function tallaSugerida(busto: number): string | null {
+  if (!busto) return null;
+  const talla = TALLAS.find((t) => busto <= t.busto) ?? TALLAS[TALLAS.length - 1];
   return talla.id;
 }
 
 /** Mensaje de pedido listo para enviar por WhatsApp. */
 export function mensajePedido(s: Seleccion, r: Resumen): string {
   const talla = s.aMedida
-    ? `A medida — pecho ${s.medidas.pecho} cm, cintura ${s.medidas.cintura} cm, cadera ${s.medidas.cadera} cm, estatura ${s.medidas.estatura} cm`
+    ? `A medida — busto ${s.medidas.busto} cm, cintura ${s.medidas.cintura} cm, cadera ${s.medidas.cadera} cm, estatura ${s.medidas.estatura} cm`
     : s.tallaId;
   const detalle = s.bordado.detalle.trim();
   const bordado = [
