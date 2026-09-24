@@ -38,6 +38,7 @@ export function Configurador() {
             <div className="relative h-[30vh] max-h-72 min-h-44 w-2/5 shrink-0 px-2 py-3 lg:mx-auto lg:aspect-[4/5] lg:h-auto lg:max-h-none lg:w-full lg:max-w-md lg:px-6 lg:pt-8 lg:pb-0">
               <VistaUniforme
                 escote={modelo.escote}
+                manga={modelo.manga}
                 pantalon={modelo.pantalon}
                 color={color.hex}
                 textura={tela.textura}

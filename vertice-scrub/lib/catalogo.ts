@@ -4,14 +4,16 @@
  * Todos los precios están en euros.
  */
 
-export type Escote = "pico" | "cruzado" | "mao";
-export type Pantalon = "recto" | "jogger" | "cargo";
+export type Escote = "pico" | "cruzado" | "mao" | "mao-pico";
+export type Manga = "montada" | "kimono";
+export type Pantalon = "recto" | "jogger" | "cargo" | "ancho";
 
 export interface Modelo {
   id: string;
   nombre: string;
   descripcion: string;
   escote: Escote;
+  manga: Manga;
   pantalon: Pantalon;
   precioBase: number;
   disponibilidad: "bajo-pedido" | "edicion-limitada";
@@ -53,18 +55,20 @@ export const MODELOS: Modelo[] = [
   {
     id: "aurora",
     nombre: "Aurora",
-    descripcion: "Cuello en pico y pantalón recto. El clásico reinterpretado con un entalle limpio.",
-    escote: "pico",
-    pantalon: "recto",
+    descripcion: "Cuello mao abierto en pico, manga kimono y pantalón ancho cargo. Fluido y con estructura.",
+    escote: "mao-pico",
+    manga: "kimono",
+    pantalon: "ancho",
     precioBase: 64,
     disponibilidad: "bajo-pedido",
-    detalles: ["Pinzas traseras", "2 bolsillos de parche", "Cintura con cordón interior"],
+    detalles: ["Manga kimono sin costura de hombro", "Bolsillos cargo con solapa", "Abertura lateral en el bajo"],
   },
   {
     id: "solsticio",
     nombre: "Solsticio",
     descripcion: "Escote cruzado y jogger con puño. Silueta fluida para jornadas largas.",
     escote: "cruzado",
+    manga: "montada",
     pantalon: "jogger",
     precioBase: 72,
     disponibilidad: "edicion-limitada",
@@ -76,6 +80,7 @@ export const MODELOS: Modelo[] = [
     nombre: "Nómada",
     descripcion: "Cuello mao y pantalón cargo. Estructurado, funcional y con más almacenaje.",
     escote: "mao",
+    manga: "montada",
     pantalon: "cargo",
     precioBase: 78,
     disponibilidad: "bajo-pedido",
