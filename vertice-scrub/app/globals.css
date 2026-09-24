@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+/*
+ * Vértice.scrub — sistema de diseño
+ * Paleta neutra y cálida (hueso, arena, piedra, grafito) con un acento salvia.
+ * Todos los tokens se exponen como utilidades de Tailwind: bg-hueso, text-grafito, border-linea…
+ */
+@theme {
+  /* Neutros */
+  --color-hueso: #f8f5f0;        /* fondo principal */
+  --color-marfil: #fdfcfa;       /* tarjetas */
+  --color-arena: #ece5da;        /* superficies secundarias */
+  --color-piedra: #b9b0a3;       /* texto terciario, iconos */
+  --color-topo: #7a7166;         /* texto secundario */
+  --color-grafito: #2a2826;      /* texto principal y CTA */
+  --color-linea: #e3dcd0;        /* bordes finos */
+
+  /* Acentos */
+  --color-salvia: #7f8f7a;
+  --color-salvia-oscuro: #5f6e5b;
+  --color-arcilla: #b4876a;
+
+  /* Tipografía (las variables las inyecta next/font en app/layout.tsx) */
+  --font-display: var(--font-cormorant), "Cormorant Garamond", ui-serif, Georgia, serif;
+  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui, sans-serif;
+
+  /* Movimiento: curva suave, "artesanal" */
+  --ease-seda: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-aparecer: aparecer 700ms var(--ease-seda) both;
+
+  @keyframes aparecer {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--color-hueso);
+    color: var(--color-grafito);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--color-arena);
+  }
+
+  :focus-visible {
+    outline: 1.5px solid var(--color-grafito);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  /* Etiqueta pequeña en versalitas usada en encabezados de sección */
+  .eyebrow {
+    @apply text-[0.68rem] font-semibold tracking-[0.28em] uppercase text-topo;
+  }
+
+  /* Tarjeta de opción seleccionable (modelos, telas, tallas…) */
+  .opcion {
+    @apply relative rounded-2xl border border-linea bg-marfil text-left transition-all duration-500 ease-seda;
+    @apply hover:border-piedra;
+  }
+  .opcion[aria-checked="true"],
+  .opcion[aria-pressed="true"] {
+    @apply border-grafito shadow-[0_10px_30px_-18px_rgba(42,40,38,0.45)];
+  }
+
+  .campo {
+    @apply w-full rounded-xl border border-linea bg-marfil px-4 py-3 text-sm text-grafito placeholder:text-piedra;
+    @apply transition-colors duration-300 focus:border-grafito focus:outline-none;
+  }
+}
+
+/* Transición de color del uniforme (el SVG usa fill en línea) */
+.tinte {
+  transition: fill 900ms var(--ease-seda);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
