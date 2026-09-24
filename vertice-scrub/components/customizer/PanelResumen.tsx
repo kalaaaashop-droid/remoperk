@@ -7,12 +7,9 @@ interface Props {
 }
 
 export function PanelResumen({ seleccion, resumen }: Props) {
-  const { modelo, tela, color, bota, hilo, lineas, total, medidasCompletas } = resumen;
+  const { modelo, tela, color, bota, lineas, total, medidasCompletas } = resumen;
   const faltanMedidas = seleccion.aMedida && !medidasCompletas;
-  const bordado = [seleccion.bordado.nombre.trim() && `«${seleccion.bordado.nombre.trim()}»`, seleccion.bordado.especialidad]
-    .filter(Boolean)
-    .join(" · ");
-  const detalle = seleccion.bordado.detalle.trim();
+  const detalle = seleccion.bordado.trim();
 
   const filas: [string, string][] = [
     ["Modelo", modelo.nombre],
@@ -20,8 +17,7 @@ export function PanelResumen({ seleccion, resumen }: Props) {
     ["Color", color.nombre],
     ["Talla", seleccion.aMedida ? "A medida" : seleccion.tallaId],
     ["Pantalón", bota.nombre],
-    ["Bordado", bordado ? `${bordado} · hilo ${hilo.nombre.toLowerCase()}` : "Sin bordado"],
-    ...(detalle ? [["Bordado personalizado", detalle] as [string, string]] : []),
+    ["Bordado personalizado", detalle || "Sin bordado"],
   ];
 
   const enlace = `https://wa.me/${WHATSAPP_PEDIDOS}?text=${encodeURIComponent(mensajePedido(seleccion, resumen))}`;

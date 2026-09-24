@@ -42,12 +42,6 @@ export function Configurador() {
                   foto={modelo.foto}
                   nombreModelo={modelo.nombre}
                   color={color.hex}
-                  bordado={{
-                    nombre: seleccion.bordado.nombre.trim(),
-                    especialidad: seleccion.bordado.especialidad,
-                    hilo: resumen.hilo.hex,
-                    claseFuente: resumen.tipografia.clase,
-                  }}
                 />
               ) : (
                 <VistaUniforme
@@ -57,12 +51,6 @@ export function Configurador() {
                   pantalon={modelo.pantalon}
                   color={color.hex}
                   textura={tela.textura}
-                  bordado={{
-                    nombre: seleccion.bordado.nombre.trim(),
-                    especialidad: seleccion.bordado.especialidad,
-                    hilo: resumen.hilo.hex,
-                    tipografia: resumen.tipografia.id,
-                  }}
                 />
               )}
             </div>
@@ -80,13 +68,6 @@ export function Configurador() {
                 {formatearPrecio(resumen.total)}
               </p>
             </div>
-            <LupaBordado
-              nombre={seleccion.bordado.nombre.trim()}
-              especialidad={seleccion.bordado.especialidad}
-              fondo={color.hex}
-              hilo={resumen.hilo.hex}
-              claseFuente={resumen.tipografia.clase}
-            />
           </div>
 
           {/* Índice de pasos (solo escritorio) */}
@@ -118,8 +99,8 @@ export function Configurador() {
           <SelectorTalla seleccion={seleccion} dispatch={dispatch} />
         </Seccion>
 
-        <Seccion id="bordado" paso={4} titulo="Bordado personalizado" subtitulo="Opcional. Tu nombre y especialidad, bordados en el taller.">
-          <SelectorBordado bordado={seleccion.bordado} dispatch={dispatch} />
+        <Seccion id="bordado" paso={4} titulo="Bordado personalizado" subtitulo="Opcional. Descríbelo y te lo cotizamos.">
+          <SelectorBordado valor={seleccion.bordado} dispatch={dispatch} />
         </Seccion>
 
         <Seccion id="resumen" paso={5} titulo="Resumen de tu pedido">
@@ -137,33 +118,3 @@ export function Configurador() {
   );
 }
 
-/** Detalle ampliado del bordado: en la prenda es pequeño (como en la realidad), aquí se aprecia. */
-function LupaBordado({
-  nombre,
-  especialidad,
-  fondo,
-  hilo,
-  claseFuente,
-}: {
-  nombre: string;
-  especialidad: string;
-  fondo: string;
-  hilo: string;
-  claseFuente: string;
-}) {
-  const visible = Boolean(nombre || especialidad);
-  return (
-    <div
-      aria-hidden={!visible}
-      className={`absolute top-3 right-3 grid h-20 w-20 place-items-center rounded-full border-4 border-marfil text-center shadow-[0_12px_30px_-16px_rgba(0,0,0,0.5)] transition-all duration-700 ease-seda lg:top-6 lg:right-6 lg:h-28 lg:w-28 ${
-        visible ? "scale-100 opacity-100" : "pointer-events-none scale-75 opacity-0"
-      }`}
-      style={{ backgroundColor: fondo, color: hilo, textShadow: "0 1px 0 rgba(0,0,0,0.18)" }}
-    >
-      <div className="px-2 leading-tight">
-        {nombre && <p className={`text-[0.7rem] break-words lg:text-sm ${claseFuente}`}>{nombre}</p>}
-        {especialidad && <p className="mt-0.5 text-[0.45rem] tracking-[0.2em] uppercase lg:text-[0.55rem]">{especialidad}</p>}
-      </div>
-    </div>
-  );
-}

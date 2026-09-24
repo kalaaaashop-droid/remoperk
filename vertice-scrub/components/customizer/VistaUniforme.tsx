@@ -7,12 +7,6 @@ interface Props {
   pantalon: Pantalon;
   color: string;
   textura: Tela["textura"];
-  bordado?: {
-    nombre: string;
-    especialidad: string;
-    hilo: string;
-    tipografia: "script" | "serif" | "sans";
-  };
 }
 
 /* --- Siluetas (sin fill: lo heredan del <g> contenedor para poder animar el color) --- */
@@ -229,25 +223,7 @@ function Detalles({ escote, manga, pantalon, bota }: PropsSilueta) {
   );
 }
 
-const FUENTE_BORDADO = {
-  script: { fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: 13, letterSpacing: 0, anchoLetra: 0.45 },
-  serif: { fontFamily: "var(--font-display)", fontStyle: "normal", fontSize: 12, letterSpacing: 0.3, anchoLetra: 0.5 },
-  sans: { fontFamily: "var(--font-sans)", fontStyle: "normal", fontSize: 8, letterSpacing: 1.2, anchoLetra: 0.85 },
-} as const;
-
-/** Ancho disponible en el pecho (unidades SVG) para que el bordado no se salga de la casaca. */
-const ANCHO_BORDADO = 54;
-
-export function VistaUniforme({ escote, manga, bota, pantalon, color, textura, bordado }: Props) {
-  const { anchoLetra, ...fuente } = FUENTE_BORDADO[bordado?.tipografia ?? "script"];
-  const nombre = bordado?.tipografia === "sans" ? bordado.nombre.toUpperCase() : bordado?.nombre;
-  const tamano = nombre ? Math.min(fuente.fontSize, ANCHO_BORDADO / (nombre.length * anchoLetra)) : fuente.fontSize;
-  // El bordado va en el pecho izquierdo de quien lo lleva (derecha de la imagen).
-  // Con manga kimono la sisa curva entra más en el pecho, así que se acerca al centro.
-  const xBordado = manga === "kimono" ? 228 : 234;
-  // Con bolsillo de pecho el bordado va justo encima del bolsillo.
-  const yBordado = escote === "alto-pico" ? 116 : 150;
-
+export function VistaUniforme({ escote, manga, bota, pantalon, color, textura }: Props) {
   return (
     <svg viewBox="0 0 400 540" role="img" aria-label="Vista previa del uniforme personalizado" className="h-full w-full">
       <defs>
@@ -287,29 +263,6 @@ export function VistaUniforme({ escote, manga, bota, pantalon, color, textura, b
         <Detalles escote={escote} manga={manga} pantalon={pantalon} bota={bota} />
       </g>
 
-      {bordado && (nombre || bordado.especialidad) && (
-        <g
-          key={`${bordado.tipografia}-${escote}`}
-          className="animate-aparecer"
-          textAnchor="middle"
-          style={{ fill: bordado.hilo, transition: "fill 600ms var(--ease-seda)" }}
-        >
-          {nombre && (
-            <text x={xBordado} y={yBordado} style={{ ...fuente, fontSize: tamano }}>
-              {nombre}
-            </text>
-          )}
-          {bordado.especialidad && (
-            <text
-              x={xBordado}
-              y={nombre ? yBordado + 11 : yBordado + 2}
-              style={{ fontFamily: "var(--font-sans)", fontSize: 6, letterSpacing: 1.6, textTransform: "uppercase" }}
-            >
-              {bordado.especialidad}
-            </text>
-          )}
-        </g>
-      )}
     </svg>
   );
 }

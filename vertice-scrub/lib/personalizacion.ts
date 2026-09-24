@@ -28,13 +28,7 @@ export interface Seleccion {
   aMedida: boolean;
   medidas: Medidas;
   botaId: string;
-  bordado: {
-    nombre: string;
-    especialidad: string;
-    detalle: string; // pedido libre: se cotiza aparte
-    hiloId: string;
-    tipografiaId: string;
-  };
+  bordado: string; // descripción libre del bordado; se cotiza aparte
 }
 
 export type Accion =
@@ -45,7 +39,7 @@ export type Accion =
   | { tipo: "aMedida"; valor: boolean }
   | { tipo: "medida"; campo: keyof Medidas; valor: string }
   | { tipo: "bota"; id: string }
-  | { tipo: "bordado"; campo: keyof Seleccion["bordado"]; valor: string };
+  | { tipo: "bordado"; valor: string };
 
 export const seleccionInicial: Seleccion = {
   modeloId: MODELOS[0].id,
@@ -55,7 +49,7 @@ export const seleccionInicial: Seleccion = {
   aMedida: false,
   medidas: { busto: "", cintura: "", cadera: "", estatura: "" },
   botaId: botaDelModelo(MODELOS[0]),
-  bordado: { nombre: "", especialidad: "", detalle: "", hiloId: BORDADO.hilos[0].id, tipografiaId: BORDADO.tipografias[0].id },
+  bordado: "",
 };
 
 export function reducer(estado: Seleccion, accion: Accion): Seleccion {
@@ -85,11 +79,8 @@ export function reducer(estado: Seleccion, accion: Accion): Seleccion {
       return { ...estado, medidas: { ...estado.medidas, [accion.campo]: accion.valor.replace(/[^\d]/g, "").slice(0, 3) } };
     case "bota":
       return { ...estado, botaId: accion.id };
-    case "bordado": {
-      const limite = accion.campo === "nombre" ? BORDADO.maxCaracteres : accion.campo === "detalle" ? BORDADO.maxDetalle : Infinity;
-      const valor = accion.valor.slice(0, limite);
-      return { ...estado, bordado: { ...estado.bordado, [accion.campo]: valor } };
-    }
+    case "bordado":
+      return { ...estado, bordado: accion.valor.slice(0, BORDADO.maxDetalle) };
   }
 }
 
@@ -107,8 +98,6 @@ export interface Resumen {
   tela: Tela;
   color: Color;
   bota: OpcionAjuste;
-  hilo: Color;
-  tipografia: (typeof BORDADO.tipografias)[number];
   lineas: LineaPrecio[];
   total: number;
   medidasCompletas: boolean;
@@ -120,8 +109,6 @@ export function resumir(s: Seleccion): Resumen {
   const tela = buscar(TELAS, s.telaId);
   const color = buscar(tela.colores, s.colorId);
   const bota = buscar(BOTAS, s.botaId);
-  const hilo = buscar(BORDADO.hilos, s.bordado.hiloId);
-  const tipografia = buscar(BORDADO.tipografias, s.bordado.tipografiaId);
 
   const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre} · ${tela.nombre}`, importe: tela.precio }];
   // Talla grande (2XL en adelante). A medida se usa la talla que corresponde al busto indicado.
@@ -129,8 +116,6 @@ export function resumir(s: Seleccion): Resumen {
   const recargoTalla = TALLAS.find((t) => t.id === tallaId)?.recargo ?? 0;
   if (recargoTalla) lineas.push({ concepto: `Talla ${tallaId}`, importe: recargoTalla });
   if (s.aMedida) lineas.push({ concepto: "Patronaje a medida", importe: RECARGO_A_MEDIDA });
-  if (s.bordado.nombre.trim()) lineas.push({ concepto: "Bordado de nombre", importe: BORDADO.recargoNombre });
-  if (s.bordado.especialidad) lineas.push({ concepto: "Bordado de especialidad", importe: BORDADO.recargoEspecialidad });
 
   const medidasCompletas = Object.values(s.medidas).every((v) => Number(v) > 0);
 
@@ -139,8 +124,6 @@ export function resumir(s: Seleccion): Resumen {
     tela,
     color,
     bota,
-    hilo,
-    tipografia,
     lineas,
     total: lineas.reduce((suma, l) => suma + l.importe, 0),
     medidasCompletas,
@@ -159,11 +142,7 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
   const talla = s.aMedida
     ? `A medida — busto ${s.medidas.busto} cm, cintura ${s.medidas.cintura} cm, cadera ${s.medidas.cadera} cm, estatura ${s.medidas.estatura} cm`
     : s.tallaId;
-  const detalle = s.bordado.detalle.trim();
-  const bordado = [
-    s.bordado.nombre.trim() && `"${s.bordado.nombre.trim()}"`,
-    s.bordado.especialidad,
-  ].filter(Boolean);
+  const bordado = s.bordado.trim();
 
   return [
     "Hola Vértice.scrub, quiero hacer este pedido:",
@@ -172,9 +151,8 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
     `• Tela: ${r.tela.nombre} — ${r.color.nombre}`,
     `• Talla: ${talla}`,
     `• Pantalón: ${r.bota.nombre}`,
-    `• Bordado: ${bordado.length ? `${bordado.join(" · ")} (hilo ${r.hilo.nombre}, letra ${r.tipografia.nombre})` : "Sin bordado"}`,
-    ...(detalle ? [`• Bordado personalizado (a cotizar): ${detalle}`] : []),
+    `• Bordado personalizado: ${bordado ? `${bordado} (a cotizar)` : "Sin bordado"}`,
     "",
-    `Total estimado: ${formatearPrecio(r.total)}${detalle ? " + bordado personalizado a cotizar" : ""}`,
+    `Total estimado: ${formatearPrecio(r.total)}${bordado ? " + bordado personalizado a cotizar" : ""}`,
   ].join("\n");
 }

@@ -28,7 +28,6 @@ export interface FotoModelo {
   src: string;
   ancho: number; // px de la imagen, para mantener su proporción
   alto: number;
-  bordado: { x: number; y: number }; // posición del nombre bordado, en px de la imagen
 }
 
 export interface Color {
@@ -84,7 +83,7 @@ export const MODELOS: Modelo[] = [
     disponibilidad: "edicion-limitada",
     unidades: 40,
     detalles: ["Cuello alto en pico", "Bolsillo de parche en el pecho", "Pretina elástica fruncida"],
-    foto: { src: "/modelos/solsticio.webp", ancho: 389, alto: 850, bordado: { x: 252, y: 150 } },
+    foto: { src: "/modelos/solsticio.webp", ancho: 389, alto: 850 },
     colorInicial: "eucalipto",
   },
   {
@@ -162,32 +161,9 @@ export const botaDelModelo = (m: Modelo): Bota => (m.pantalon === "ancho" ? "anc
 /** Confección a medida: se patrona desde las medidas que envía la clienta. */
 export const RECARGO_A_MEDIDA = 18;
 
+/** Bordado personalizado: la clienta lo describe con sus palabras y se cotiza aparte. */
 export const BORDADO = {
-  maxCaracteres: 22,
-  maxDetalle: 240, // texto libre del bordado personalizado (se cotiza aparte)
-  recargoNombre: 9,
-  recargoEspecialidad: 6,
-  especialidades: [
-    "Medicina",
-    "Enfermería",
-    "Odontología",
-    "Pediatría",
-    "Fisioterapia",
-    "Veterinaria",
-    "Anestesiología",
-    "Cirugía",
-  ],
-  hilos: [
-    { id: "marfil", nombre: "Marfil", hex: "#f4efe6" },
-    { id: "oro", nombre: "Oro viejo", hex: "#c2a06b" },
-    { id: "grafito", nombre: "Grafito", hex: "#2a2826" },
-    { id: "salvia", nombre: "Salvia", hex: "#9fb09a" },
-  ] satisfies Color[],
-  tipografias: [
-    { id: "script", nombre: "Caligráfica", clase: "font-display italic" },
-    { id: "serif", nombre: "Clásica", clase: "font-display" },
-    { id: "sans", nombre: "Moderna", clase: "font-sans tracking-wide uppercase" },
-  ],
+  maxDetalle: 240,
 } as const;
 
 /** Número de WhatsApp que recibe los pedidos (formato internacional, sin "+"). */
