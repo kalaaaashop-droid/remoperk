@@ -6,7 +6,7 @@ import {
   RECARGO_A_MEDIDA,
   TALLAS,
   TELAS,
-  formatearEuros,
+  formatearPrecio,
   type Color,
   type Modelo,
   type OpcionAjuste,
@@ -50,8 +50,8 @@ export type Accion =
 
 export const seleccionInicial: Seleccion = {
   modeloId: MODELOS[0].id,
-  telaId: TELAS[1].id,
-  colorId: TELAS[1].colores[1].id,
+  telaId: TELAS[0].id,
+  colorId: TELAS[0].colores[1].id,
   tallaId: "M",
   aMedida: false,
   medidas: { pecho: "", cintura: "", cadera: "", estatura: "" },
@@ -124,8 +124,7 @@ export function resumir(s: Seleccion): Resumen {
   const hilo = buscar(BORDADO.hilos, s.bordado.hiloId);
   const tipografia = buscar(BORDADO.tipografias, s.bordado.tipografiaId);
 
-  const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre}`, importe: modelo.precioBase }];
-  if (tela.recargo) lineas.push({ concepto: `Tela ${tela.nombre}`, importe: tela.recargo });
+  const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre} · ${tela.nombre}`, importe: tela.precio }];
   if (s.aMedida) lineas.push({ concepto: "Patronaje a medida", importe: RECARGO_A_MEDIDA });
   else if (largo.recargo) lineas.push({ concepto: `Largo ${largo.nombre}`, importe: largo.recargo });
   if (s.bordado.nombre.trim()) lineas.push({ concepto: "Bordado de nombre", importe: BORDADO.recargoNombre });
@@ -173,6 +172,6 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
     `• Entalle: ${r.entalle.nombre}`,
     `• Bordado: ${bordado.length ? `${bordado.join(" · ")} (hilo ${r.hilo.nombre}, letra ${r.tipografia.nombre})` : "Sin bordado"}`,
     "",
-    `Total estimado: ${formatearEuros(r.total)}`,
+    `Total estimado: ${formatearPrecio(r.total)}`,
   ].join("\n");
 }

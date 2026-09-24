@@ -1,4 +1,4 @@
-import { WHATSAPP_PEDIDOS, formatearEuros } from "@/lib/catalogo";
+import { WHATSAPP_PEDIDOS, formatearPrecio } from "@/lib/catalogo";
 import { mensajePedido, type Resumen, type Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -44,13 +44,13 @@ export function PanelResumen({ seleccion, resumen }: Props) {
         {lineas.map((l) => (
           <div key={l.concepto} className="animate-aparecer flex justify-between text-topo">
             <span>{l.concepto}</span>
-            <span>{formatearEuros(l.importe)}</span>
+            <span>{formatearPrecio(l.importe)}</span>
           </div>
         ))}
         <div className="flex items-baseline justify-between border-t border-linea pt-3">
           <span className="font-medium">Total</span>
           <span key={total} className="animate-aparecer font-display text-3xl">
-            {formatearEuros(total)}
+            {formatearPrecio(total)}
           </span>
         </div>
       </div>

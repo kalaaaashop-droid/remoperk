@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type Dispatch } from "react";
-import { ENTALLES, LARGOS, RECARGO_A_MEDIDA, TALLAS, formatearEuros, type OpcionAjuste } from "@/lib/catalogo";
+import { ENTALLES, LARGOS, RECARGO_A_MEDIDA, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
 import { tallaSugerida, type Accion, type Medidas, type Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -28,7 +28,7 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
       <div role="tablist" aria-label="Tipo de talla" className="grid grid-cols-2 rounded-full border border-linea bg-marfil p-1 text-sm">
         {[
           { valor: false, texto: "Talla estándar" },
-          { valor: true, texto: `A medida · +${formatearEuros(RECARGO_A_MEDIDA)}` },
+          { valor: true, texto: `A medida · +${formatearPrecio(RECARGO_A_MEDIDA)}` },
         ].map((op) => {
           const activo = seleccion.aMedida === op.valor;
           return (
@@ -202,7 +202,7 @@ function GrupoAjuste({
           >
             <span className="text-sm font-medium">
               {o.nombre}
-              {o.recargo > 0 && <span className="ml-1.5 font-normal text-topo">+{formatearEuros(o.recargo)}</span>}
+              {o.recargo > 0 && <span className="ml-1.5 font-normal text-topo">+{formatearPrecio(o.recargo)}</span>}
             </span>
             <span className="text-right text-xs leading-snug text-topo sm:text-left">{o.descripcion}</span>
           </button>

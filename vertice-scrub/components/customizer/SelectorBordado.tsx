@@ -1,5 +1,5 @@
 import type { Dispatch } from "react";
-import { BORDADO, formatearEuros } from "@/lib/catalogo";
+import { BORDADO, formatearPrecio } from "@/lib/catalogo";
 import type { Accion, Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -16,7 +16,7 @@ export function SelectorBordado({ bordado, dispatch }: Props) {
       <div className="grid gap-4 sm:grid-cols-2">
         <label className="block">
           <span className="mb-1.5 flex justify-between text-xs font-medium">
-            <span>Nombre · +{formatearEuros(BORDADO.recargoNombre)}</span>
+            <span>Nombre · +{formatearPrecio(BORDADO.recargoNombre)}</span>
             <span className="font-normal text-piedra">
               {bordado.nombre.length}/{BORDADO.maxCaracteres}
             </span>
@@ -32,7 +32,7 @@ export function SelectorBordado({ bordado, dispatch }: Props) {
         </label>
 
         <label className="block">
-          <span className="mb-1.5 block text-xs font-medium">Especialidad · +{formatearEuros(BORDADO.recargoEspecialidad)}</span>
+          <span className="mb-1.5 block text-xs font-medium">Especialidad · +{formatearPrecio(BORDADO.recargoEspecialidad)}</span>
           <span className="relative block">
             <select value={bordado.especialidad} onChange={(e) => set("especialidad", e.target.value)} className="campo appearance-none pr-10">
               <option value="">Sin especialidad</option>

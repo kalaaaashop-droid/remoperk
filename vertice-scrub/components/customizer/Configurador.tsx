@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useReducer } from "react";
-import { formatearEuros } from "@/lib/catalogo";
+import { formatearPrecio } from "@/lib/catalogo";
 import { reducer, resumir, seleccionInicial } from "@/lib/personalizacion";
 import { BarraMovil } from "./BarraMovil";
 import { PanelResumen } from "./PanelResumen";
@@ -61,7 +61,7 @@ export function Configurador() {
                 </p>
               </div>
               <p key={resumen.total} className="animate-aparecer font-display text-2xl lg:text-3xl">
-                {formatearEuros(resumen.total)}
+                {formatearPrecio(resumen.total)}
               </p>
             </div>
             <LupaBordado

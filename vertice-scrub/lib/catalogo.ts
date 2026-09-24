@@ -1,7 +1,7 @@
 /**
  * Catálogo de Vértice.scrub.
  * Este es el único archivo que hay que editar para añadir modelos, telas, colores o cambiar precios.
- * Todos los precios están en euros.
+ * Todos los precios están en dólares (USD).
  */
 
 export type Escote = "pico" | "cruzado" | "mao" | "mao-pico";
@@ -15,7 +15,6 @@ export interface Modelo {
   escote: Escote;
   manga: Manga;
   pantalon: Pantalon;
-  precioBase: number;
   disponibilidad: "bajo-pedido" | "edicion-limitada";
   unidades?: number; // solo ediciones limitadas
   detalles: string[];
@@ -32,7 +31,7 @@ export interface Tela {
   nombre: string;
   composicion: string;
   cualidades: string[];
-  recargo: number;
+  precio: number; // precio del conjunto completo en esta tela
   textura: "sarga" | "punto" | "lisa";
   colores: Color[];
 }
@@ -59,7 +58,6 @@ export const MODELOS: Modelo[] = [
     escote: "mao-pico",
     manga: "kimono",
     pantalon: "ancho",
-    precioBase: 64,
     disponibilidad: "bajo-pedido",
     detalles: ["Manga kimono sin costura de hombro", "Bolsillos cargo con solapa", "Abertura lateral en el bajo"],
   },
@@ -70,7 +68,6 @@ export const MODELOS: Modelo[] = [
     escote: "cruzado",
     manga: "montada",
     pantalon: "jogger",
-    precioBase: 72,
     disponibilidad: "edicion-limitada",
     unidades: 40,
     detalles: ["Cruce asimétrico", "Puño elástico en tobillo", "Bolsillo portabolígrafos"],
@@ -82,54 +79,43 @@ export const MODELOS: Modelo[] = [
     escote: "mao",
     manga: "montada",
     pantalon: "cargo",
-    precioBase: 78,
     disponibilidad: "bajo-pedido",
     detalles: ["Cuello con tapeta", "6 bolsillos funcionales", "Presilla para identificación"],
   },
 ];
 
+/** El precio del conjunto (casaca + pantalón) lo marca la tela; es igual para todos los modelos. */
 export const TELAS: Tela[] = [
   {
-    id: "esencial",
-    nombre: "Esencial",
-    composicion: "65% poliéster · 32% viscosa · 3% elastano",
-    cualidades: ["Transpirable", "No se arruga"],
-    recargo: 0,
-    textura: "lisa",
-    colores: [
-      { id: "grafito", nombre: "Grafito", hex: "#3a3a3c" },
-      { id: "marino", nombre: "Marino", hex: "#243447" },
-      { id: "salvia", nombre: "Salvia", hex: "#8a9a86" },
-      { id: "arena", nombre: "Arena", hex: "#cbbba4" },
-    ],
-  },
-  {
-    id: "sarga-premium",
-    nombre: "Sarga Premium",
-    composicion: "72% poliéster reciclado · 21% rayón · 7% spandex",
-    cualidades: ["Caída estructurada", "Antimanchas", "Stretch 4 direcciones"],
-    recargo: 14,
+    id: "stretch",
+    nombre: "Stretch",
+    composicion: "Tejido con elastano, se estira en todas las direcciones",
+    cualidades: ["Stretch 4 direcciones", "Caída estructurada", "No se arruga"],
+    precio: 35,
     textura: "sarga",
     colores: [
       { id: "noche", nombre: "Noche", hex: "#1f2230" },
       { id: "eucalipto", nombre: "Eucalipto", hex: "#5d7468" },
       { id: "vino", nombre: "Vino", hex: "#6b2e3a" },
       { id: "petroleo", nombre: "Petróleo", hex: "#2f5260" },
-      { id: "cacao", nombre: "Cacao", hex: "#5a4337" },
+      { id: "grafito", nombre: "Grafito", hex: "#3a3a3c" },
+      { id: "salvia", nombre: "Salvia", hex: "#8a9a86" },
     ],
   },
   {
-    id: "seda-tecnica",
-    nombre: "Seda Técnica",
-    composicion: "Microfibra de tacto sedoso · 10% elastano",
-    cualidades: ["Tacto ultrasuave", "Secado rápido", "Antibacteriano"],
-    recargo: 22,
+    id: "microfibra",
+    nombre: "Microfibra",
+    composicion: "Microfibra de poliéster, ligera y de tacto suave",
+    cualidades: ["Tacto suave", "Secado rápido", "Ligera"],
+    precio: 30,
     textura: "punto",
     colores: [
-      { id: "hueso", nombre: "Hueso", hex: "#e8e1d5" },
+      { id: "marino", nombre: "Marino", hex: "#243447" },
       { id: "lavanda", nombre: "Lavanda gris", hex: "#a39fb4" },
       { id: "rosa-empolvado", nombre: "Rosa empolvado", hex: "#c9a39b" },
       { id: "azul-niebla", nombre: "Azul niebla", hex: "#8fa3b1" },
+      { id: "hueso", nombre: "Hueso", hex: "#e8e1d5" },
+      { id: "arena", nombre: "Arena", hex: "#cbbba4" },
     ],
   },
 ];
@@ -189,5 +175,8 @@ export const BORDADO = {
 /** Número de WhatsApp que recibe los pedidos (formato internacional, sin "+"). */
 export const WHATSAPP_PEDIDOS = "34600000000";
 
-export const formatearEuros = (valor: number) =>
-  new Intl.NumberFormat("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(valor);
+export const formatearPrecio = (valor: number) =>
+  new Intl.NumberFormat("es-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(valor);
+
+/** Precio más bajo de un conjunto (la tela más económica). */
+export const PRECIO_DESDE = Math.min(...TELAS.map((t) => t.precio));

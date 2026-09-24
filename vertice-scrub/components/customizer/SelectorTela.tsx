@@ -1,5 +1,5 @@
 import type { Dispatch } from "react";
-import { TELAS, formatearEuros, type Tela } from "@/lib/catalogo";
+import { TELAS, formatearPrecio, type Tela } from "@/lib/catalogo";
 import type { Accion } from "@/lib/personalizacion";
 import { Marca } from "./SelectorModelo";
 
@@ -21,7 +21,7 @@ export function SelectorTela({ telaId, colorId, dispatch }: Props) {
 
   return (
     <div className="space-y-8">
-      <div role="radiogroup" aria-label="Tipo de tela" className="grid gap-3 sm:grid-cols-3">
+      <div role="radiogroup" aria-label="Tipo de tela" className="grid gap-3 sm:grid-cols-2">
         {TELAS.map((t) => (
           <button
             key={t.id}
@@ -46,7 +46,7 @@ export function SelectorTela({ telaId, colorId, dispatch }: Props) {
                 </span>
               ))}
             </span>
-            <span className="mt-auto pt-2 text-sm text-topo">{t.recargo ? `+ ${formatearEuros(t.recargo)}` : "Incluida"}</span>
+            <span className="mt-auto pt-2 text-sm text-topo"><strong className="font-semibold text-grafito">{formatearPrecio(t.precio)}</strong> el conjunto</span>
             <Marca activa={t.id === telaId} />
           </button>
         ))}

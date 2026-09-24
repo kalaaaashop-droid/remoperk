@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { formatearEuros } from "@/lib/catalogo";
+import { formatearPrecio } from "@/lib/catalogo";
 
 interface Props {
   total: number;
@@ -34,7 +34,7 @@ export function BarraMovil({ total, colorHex, descripcion, idResumen }: Props) {
         <div className="min-w-0 flex-1">
           <p className="truncate text-xs text-topo">{descripcion}</p>
           <p key={total} className="animate-aparecer font-display text-xl leading-tight">
-            {formatearEuros(total)}
+            {formatearPrecio(total)}
           </p>
         </div>
         <a

@@ -1,5 +1,5 @@
 import type { Dispatch } from "react";
-import { MODELOS, formatearEuros } from "@/lib/catalogo";
+import { MODELOS, PRECIO_DESDE, formatearPrecio } from "@/lib/catalogo";
 import type { Accion } from "@/lib/personalizacion";
 
 interface Props {
@@ -39,7 +39,7 @@ export function SelectorModelo({ valor, dispatch }: Props) {
               ))}
             </ul>
             <span className="border-t border-linea pt-3 text-sm">
-              desde <strong className="font-semibold">{formatearEuros(m.precioBase)}</strong>
+              desde <strong className="font-semibold">{formatearPrecio(PRECIO_DESDE)}</strong>
             </span>
             <Marca activa={activo} />
           </button>
