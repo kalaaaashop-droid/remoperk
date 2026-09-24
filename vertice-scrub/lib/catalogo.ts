@@ -47,7 +47,7 @@ export interface Tela {
   colores: Color[];
 }
 
-/** Tabla de medidas universales de Vértice.scrub (contornos en cm). */
+/** Tabla de medidas universales de Vértice.scrub: medidas del cuerpo (no de la prenda), en cm. */
 export interface Talla {
   id: string;
   busto: number;

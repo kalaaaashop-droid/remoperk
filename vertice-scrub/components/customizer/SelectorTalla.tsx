@@ -121,7 +121,7 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
             <div className="overflow-hidden">
               <div className="overflow-x-auto rounded-2xl border border-linea bg-marfil">
                 <table className="w-full min-w-[20rem] text-sm">
-                  <caption className="sr-only">Tabla de medidas universales, contornos en centímetros</caption>
+                  <caption className="sr-only">Tabla de medidas universales: medidas del cuerpo en centímetros</caption>
                   <thead>
                     <tr className="text-left text-xs text-topo">
                       <th className="px-4 py-3 font-medium">Talla</th>
@@ -148,7 +148,7 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
                 </table>
               </div>
               <p className="mt-3 text-xs leading-relaxed text-piedra">
-                Contornos en centímetros. Si estás entre dos tallas, elige la mayor.
+                Medidas del cuerpo, no de la prenda, en centímetros. Mídete sin apretar la cinta y, si estás entre dos tallas, elige la mayor.
               </p>
             </div>
           </div>
