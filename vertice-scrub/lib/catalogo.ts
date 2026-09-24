@@ -20,6 +20,8 @@ export interface Modelo {
   detalles: string[];
   /** Foto recortada y recoloreable (sustituye al dibujo). Se genera con scripts/recortar-foto.py. */
   foto?: FotoModelo;
+  /** Color con el que se muestra el modelo al elegirlo (id de un color de cualquier tela). */
+  colorInicial?: string;
 }
 
 export interface FotoModelo {
@@ -80,7 +82,8 @@ export const MODELOS: Modelo[] = [
     disponibilidad: "edicion-limitada",
     unidades: 40,
     detalles: ["Cuello alto en pico", "Bolsillo de parche en el pecho", "Pretina elástica fruncida"],
-    foto: { src: "/modelos/solsticio.webp", ancho: 392, alto: 848, bordado: { x: 252, y: 150 } },
+    foto: { src: "/modelos/solsticio.webp", ancho: 389, alto: 850, bordado: { x: 252, y: 150 } },
+    colorInicial: "eucalipto",
   },
   {
     id: "nomada",

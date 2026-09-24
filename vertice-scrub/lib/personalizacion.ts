@@ -62,8 +62,13 @@ export const seleccionInicial: Seleccion = {
 
 export function reducer(estado: Seleccion, accion: Accion): Seleccion {
   switch (accion.tipo) {
-    case "modelo":
-      return { ...estado, modeloId: accion.id };
+    case "modelo": {
+      const modelo = buscar(MODELOS, accion.id);
+      const tela = modelo.colorInicial && TELAS.find((t) => t.colores.some((c) => c.id === modelo.colorInicial));
+      return tela
+        ? { ...estado, modeloId: modelo.id, telaId: tela.id, colorId: modelo.colorInicial! }
+        : { ...estado, modeloId: modelo.id };
+    }
     case "tela": {
       // Cada tela tiene su propia carta de colores: si el color actual no existe en la nueva tela,
       // se conserva la posición en la carta para que el cambio se sienta natural.
