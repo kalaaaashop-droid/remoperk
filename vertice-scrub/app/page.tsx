@@ -31,6 +31,11 @@ export default function Inicio() {
           <p className="animate-aparecer mx-auto mt-6 max-w-xl text-base leading-relaxed text-topo [animation-delay:240ms]">
             Diseña tu scrub pieza a pieza: modelo, tela, color, talla y bordado. Lo confeccionamos a mano, solo para ti.
           </p>
+          <p className="animate-aparecer mx-auto mt-5 inline-flex items-center gap-2 rounded-full border border-linea bg-marfil px-4 py-2 text-xs text-topo [animation-delay:300ms]">
+            <span className="h-1.5 w-1.5 rounded-full bg-salvia" aria-hidden />
+            También personalizamos uniformes universitarios
+          </p>
+          <br />
           <a
             href="#personaliza"
             className="animate-aparecer mt-8 inline-flex rounded-full bg-grafito px-7 py-3.5 text-sm font-medium tracking-wide text-hueso transition-colors duration-500 [animation-delay:360ms] hover:bg-black"

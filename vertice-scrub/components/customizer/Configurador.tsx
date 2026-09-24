@@ -99,7 +99,7 @@ export function Configurador() {
           <SelectorTalla seleccion={seleccion} dispatch={dispatch} />
         </Seccion>
 
-        <Seccion id="bordado" paso={4} titulo="Bordado personalizado" subtitulo="Opcional. Descríbelo y te lo cotizamos.">
+        <Seccion id="bordado" paso={4} titulo="Bordado personalizado" subtitulo="Opcional. Descríbelo y te lo cotizamos. También bordamos uniformes universitarios.">
           <SelectorBordado valor={seleccion.bordado} dispatch={dispatch} />
         </Seccion>
 

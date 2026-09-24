@@ -19,7 +19,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Vértice.scrub · Uniformes médicos de autor",
   description:
-    "Uniformes médicos confeccionados artesanalmente en nuestro taller de Valencia. Telas premium, patrones propios y entalle preciso. Personaliza el tuyo.",
+    "Uniformes médicos confeccionados artesanalmente en nuestro taller de Valencia. Telas premium, patrones propios y entalle preciso. También personalizamos uniformes universitarios.",
   openGraph: {
     title: "Vértice.scrub · Slow fashion médico",
     description: "Personaliza tu uniforme: modelo, tela, color, talla y bordado.",

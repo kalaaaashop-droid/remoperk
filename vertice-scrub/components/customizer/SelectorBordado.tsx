@@ -29,8 +29,9 @@ export function SelectorBordado({ valor, dispatch }: Props) {
         aria-describedby="bordado-detalle-ayuda"
       />
       <span id="bordado-detalle-ayuda" className="mt-1 block text-[0.7rem] leading-snug text-piedra">
-        Cuéntanos qué quieres bordar: nombre, especialidad, logo, frase o dibujo, con el color del hilo y dónde va. Es un
-        costo adicional que te cotizamos por WhatsApp antes de confeccionar.
+        Cuéntanos qué quieres bordar: nombre, especialidad, logo, frase o dibujo, con el color del hilo y dónde va.
+        ¿Uniforme universitario? Indica tu universidad, carrera o escudo. Es un costo adicional que te cotizamos por
+        WhatsApp antes de confeccionar.
       </span>
     </label>
   );
