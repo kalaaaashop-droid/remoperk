@@ -61,9 +61,8 @@ export function PanelResumen({ seleccion, resumen }: Props) {
 
       <p className="mt-4 text-xs leading-relaxed text-topo">
         {modelo.disponibilidad === "edicion-limitada"
-          ? `Edición limitada de ${modelo.unidades} unidades. Confección y envío en 7–10 días laborables.`
-          : "Confeccionado bajo pedido en nuestro taller. Entrega en 10–14 días laborables."}{" "}
-        IVA incluido.
+          ? `Edición limitada de ${modelo.unidades} unidades. Entrega entre 7 y 10 días hábiles.`
+          : "Confeccionado bajo pedido en nuestro taller. Entrega entre 7 y 10 días hábiles."}
       </p>
 
       <a
