@@ -12,6 +12,7 @@ export function PanelResumen({ seleccion, resumen }: Props) {
   const bordado = [seleccion.bordado.nombre.trim() && `«${seleccion.bordado.nombre.trim()}»`, seleccion.bordado.especialidad]
     .filter(Boolean)
     .join(" · ");
+  const detalle = seleccion.bordado.detalle.trim();
 
   const filas: [string, string][] = [
     ["Modelo", modelo.nombre],
@@ -20,6 +21,7 @@ export function PanelResumen({ seleccion, resumen }: Props) {
     ["Talla", seleccion.aMedida ? "A medida" : seleccion.tallaId],
     ["Pantalón", bota.nombre],
     ["Bordado", bordado ? `${bordado} · hilo ${hilo.nombre.toLowerCase()}` : "Sin bordado"],
+    ...(detalle ? [["Bordado personalizado", detalle] as [string, string]] : []),
   ];
 
   const enlace = `https://wa.me/${WHATSAPP_PEDIDOS}?text=${encodeURIComponent(mensajePedido(seleccion, resumen))}`;
@@ -30,7 +32,7 @@ export function PanelResumen({ seleccion, resumen }: Props) {
         {filas.map(([k, v]) => (
           <div key={k} className="flex items-start justify-between gap-6 py-3 first:pt-0">
             <dt className="text-topo">{k}</dt>
-            <dd key={v} className="animate-aparecer flex items-center gap-2 text-right font-medium">
+            <dd key={k === "Bordado personalizado" ? k : v} className="animate-aparecer flex min-w-0 items-center gap-2 text-right font-medium break-words">
               {k === "Color" && (
                 <span className="transition-colors duration-700 ease-seda h-3.5 w-3.5 rounded-full" style={{ backgroundColor: color.hex }} aria-hidden />
               )}
@@ -47,12 +49,19 @@ export function PanelResumen({ seleccion, resumen }: Props) {
             <span>{formatearPrecio(l.importe)}</span>
           </div>
         ))}
+        {detalle && (
+          <div className="animate-aparecer flex justify-between text-topo">
+            <span>Bordado personalizado</span>
+            <span className="text-arcilla">A cotizar</span>
+          </div>
+        )}
         <div className="flex items-baseline justify-between border-t border-linea pt-3">
           <span className="font-medium">Total</span>
           <span key={total} className="animate-aparecer font-display text-3xl">
             {formatearPrecio(total)}
           </span>
         </div>
+        {detalle && <p className="text-right text-xs text-arcilla">+ bordado personalizado, se cotiza aparte</p>}
       </div>
 
       <p className="mt-4 text-xs leading-relaxed text-topo">

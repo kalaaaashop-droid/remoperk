@@ -31,6 +31,7 @@ export interface Seleccion {
   bordado: {
     nombre: string;
     especialidad: string;
+    detalle: string; // pedido libre: se cotiza aparte
     hiloId: string;
     tipografiaId: string;
   };
@@ -54,7 +55,7 @@ export const seleccionInicial: Seleccion = {
   aMedida: false,
   medidas: { pecho: "", cintura: "", cadera: "", estatura: "" },
   botaId: botaDelModelo(MODELOS[0]),
-  bordado: { nombre: "", especialidad: "", hiloId: BORDADO.hilos[0].id, tipografiaId: BORDADO.tipografias[0].id },
+  bordado: { nombre: "", especialidad: "", detalle: "", hiloId: BORDADO.hilos[0].id, tipografiaId: BORDADO.tipografias[0].id },
 };
 
 export function reducer(estado: Seleccion, accion: Accion): Seleccion {
@@ -85,7 +86,8 @@ export function reducer(estado: Seleccion, accion: Accion): Seleccion {
     case "bota":
       return { ...estado, botaId: accion.id };
     case "bordado": {
-      const valor = accion.campo === "nombre" ? accion.valor.slice(0, BORDADO.maxCaracteres) : accion.valor;
+      const limite = accion.campo === "nombre" ? BORDADO.maxCaracteres : accion.campo === "detalle" ? BORDADO.maxDetalle : Infinity;
+      const valor = accion.valor.slice(0, limite);
       return { ...estado, bordado: { ...estado.bordado, [accion.campo]: valor } };
     }
   }
@@ -153,6 +155,7 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
   const talla = s.aMedida
     ? `A medida — pecho ${s.medidas.pecho} cm, cintura ${s.medidas.cintura} cm, cadera ${s.medidas.cadera} cm, estatura ${s.medidas.estatura} cm`
     : s.tallaId;
+  const detalle = s.bordado.detalle.trim();
   const bordado = [
     s.bordado.nombre.trim() && `"${s.bordado.nombre.trim()}"`,
     s.bordado.especialidad,
@@ -166,7 +169,8 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
     `• Talla: ${talla}`,
     `• Pantalón: ${r.bota.nombre}`,
     `• Bordado: ${bordado.length ? `${bordado.join(" · ")} (hilo ${r.hilo.nombre}, letra ${r.tipografia.nombre})` : "Sin bordado"}`,
+    ...(detalle ? [`• Bordado personalizado (a cotizar): ${detalle}`] : []),
     "",
-    `Total estimado: ${formatearPrecio(r.total)}`,
+    `Total estimado: ${formatearPrecio(r.total)}${detalle ? " + bordado personalizado a cotizar" : ""}`,
   ].join("\n");
 }

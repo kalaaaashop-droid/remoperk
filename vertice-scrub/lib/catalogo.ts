@@ -159,6 +159,7 @@ export const RECARGO_A_MEDIDA = 18;
 
 export const BORDADO = {
   maxCaracteres: 22,
+  maxDetalle: 240, // texto libre del bordado personalizado (se cotiza aparte)
   recargoNombre: 9,
   recargoEspecialidad: 6,
   especialidades: [

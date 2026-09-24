@@ -9,7 +9,7 @@ interface Props {
 
 export function SelectorBordado({ bordado, dispatch }: Props) {
   const set = (campo: keyof Seleccion["bordado"], valor: string) => dispatch({ tipo: "bordado", campo, valor });
-  const tieneBordado = Boolean(bordado.nombre.trim() || bordado.especialidad);
+  const tieneBordado = Boolean(bordado.nombre.trim() || bordado.especialidad || bordado.detalle.trim());
 
   return (
     <div className="space-y-6">
@@ -46,6 +46,31 @@ export function SelectorBordado({ bordado, dispatch }: Props) {
           </span>
         </label>
       </div>
+
+      <label className="block">
+        <span className="mb-1.5 flex justify-between gap-4 text-xs font-medium">
+          <span>
+            Bordado personalizado · <span className="font-semibold text-arcilla">costo adicional, se cotiza</span>
+          </span>
+          <span className="font-normal text-piedra">
+            {bordado.detalle.length}/{BORDADO.maxDetalle}
+          </span>
+        </span>
+        <textarea
+          id="bordado-detalle"
+          value={bordado.detalle}
+          onChange={(e) => set("detalle", e.target.value)}
+          maxLength={BORDADO.maxDetalle}
+          rows={3}
+          placeholder="Ej.: el logo de mi clínica en la manga izquierda y una frase en la espalda"
+          className="campo resize-none leading-relaxed"
+          aria-describedby="bordado-detalle-ayuda"
+        />
+        <span id="bordado-detalle-ayuda" className="mt-1 block text-[0.7rem] leading-snug text-piedra">
+          Cuéntanos qué quieres bordar: logos, frases, dibujos o su ubicación. Es un costo adicional que te cotizamos
+          por WhatsApp antes de confeccionar.
+        </span>
+      </label>
 
       {/* Hilo y tipografía solo tienen sentido si hay algo que bordar */}
       <fieldset

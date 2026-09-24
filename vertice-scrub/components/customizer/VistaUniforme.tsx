@@ -85,6 +85,10 @@ function Silueta({ escote, manga, pantalon, bota }: PropsSilueta) {
 function Detalles({ escote, manga, pantalon, bota }: PropsSilueta) {
   // Con bota recta, los detalles del lateral de la pierna se acercan al centro
   const dx = bota === "recta" ? 13 : 0;
+  const elastico = pantalon === "ancho" || pantalon === "recto";
+  // Bota ancha (Aurora): bolsillos cargo. Bota recta: un bolsillo clásico doble en una sola pierna.
+  const cargo = pantalon === "ancho" && bota === "ancha";
+  const bolsilloDoble = elastico && bota === "recta";
   const costura = { fill: "none", stroke: "rgba(0,0,0,0.22)", strokeWidth: 1.1 };
   const pespunte = { fill: "none", stroke: "rgba(255,255,255,0.32)", strokeWidth: 0.9, strokeDasharray: "2.5 2.5" };
 
@@ -180,16 +184,20 @@ function Detalles({ escote, manga, pantalon, bota }: PropsSilueta) {
       {/* Bolsillos del pantalón */}
       {pantalon === "ancho" ? (
         <>
-          {/* Bolsillos cargo con solapa en el lateral del muslo, costura vertical y abertura en el bajo */}
+          {/* Abertura lateral en el bajo y, con bota ancha, bolsillos cargo con solapa y costura vertical */}
           {[
             { lado: "izq", transform: `translate(${dx} 0)` },
             { lado: "der", transform: `translate(${400 - dx} 0) scale(-1 1)` },
           ].map(({ lado, transform }) => (
             <g key={lado} transform={transform}>
-              <path d="M132,368 L170,368 L170,424 L127,424 Z" {...costura} />
-              <path d="M131,384 L170,384" {...costura} />
-              <path d="M132,388 L167,388" {...pespunte} />
-              <path d="M150,424 L148,524" {...costura} />
+              {cargo && (
+                <>
+                  <path d="M132,368 L170,368 L170,424 L127,424 Z" {...costura} />
+                  <path d="M131,384 L170,384" {...costura} />
+                  <path d="M132,388 L167,388" {...pespunte} />
+                  <path d="M150,424 L148,524" {...costura} />
+                </>
+              )}
               <path d="M121,524 L124,494" {...costura} />
             </g>
           ))}
@@ -207,6 +215,16 @@ function Detalles({ escote, manga, pantalon, bota }: PropsSilueta) {
         <path d="M150,288 Q162,308 138,322 M250,288 Q238,308 262,322" {...costura} />
       )}
       {pantalon === "jogger" && <path d="M149,508 L187,508 M213,508 L251,508" {...pespunte} />}
+
+      {/* Bolsillo clásico doble: bolsillo de parche con un segundo bolsillo cosido encima */}
+      {bolsilloDoble && (
+        <>
+          <rect x={146} y={364} width={40} height={66} rx={2} {...costura} />
+          <path d="M148,369 L184,369" {...pespunte} />
+          <rect x={146} y={396} width={40} height={34} rx={2} {...costura} />
+          <path d="M148,401 L184,401" {...pespunte} />
+        </>
+      )}
     </g>
   );
 }
