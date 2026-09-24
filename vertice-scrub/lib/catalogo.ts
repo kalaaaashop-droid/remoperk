@@ -66,12 +66,12 @@ export const MODELOS: Modelo[] = [
   {
     id: "aurora",
     nombre: "Aurora",
-    descripcion: "Cuello mao abierto en pico, manga kimono y pantalón ancho cargo. Fluido y con estructura.",
+    descripcion: "Cuello mao grueso abierto en pico, manga kimono y pantalón ancho cargo. Fluido y con estructura.",
     escote: "mao-pico",
     manga: "kimono",
     pantalon: "ancho",
     disponibilidad: "bajo-pedido",
-    detalles: ["Manga kimono sin costura de hombro", "Bolsillos cargo con solapa", "Abertura lateral en el bajo"],
+    detalles: ["Cuello mao grueso", "Manga kimono sin costura de hombro", "Bolsillos cargo con solapa", "Abertura lateral en el bajo"],
     foto: { src: "/modelos/aurora.webp", ancho: 490, alto: 851 },
   },
   {
