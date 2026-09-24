@@ -7,15 +7,14 @@ interface Props {
 }
 
 export function PanelResumen({ seleccion, resumen }: Props) {
-  const { modelo, tela, color, bota, lineas, total, medidasCompletas } = resumen;
-  const faltanMedidas = seleccion.aMedida && !medidasCompletas;
+  const { modelo, tela, color, bota, lineas, total } = resumen;
   const detalle = seleccion.bordado.trim();
 
   const filas: [string, string][] = [
     ["Modelo", modelo.nombre],
     ["Tela", tela.nombre],
     ["Color", color.nombre],
-    ["Talla", seleccion.aMedida ? "A medida" : seleccion.tallaId],
+    ["Talla", seleccion.tallaId],
     ["Pantalón", bota.nombre],
     ["Bordado personalizado", detalle || "Sin bordado"],
   ];
@@ -67,23 +66,17 @@ export function PanelResumen({ seleccion, resumen }: Props) {
         IVA incluido.
       </p>
 
-      {faltanMedidas ? (
-        <p role="status" className="mt-6 rounded-full border border-arcilla/40 px-5 py-4 text-center text-sm text-arcilla">
-          Completa tus medidas en el paso 3 para continuar
-        </p>
-      ) : (
-        <a
-          href={enlace}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="group mt-6 flex w-full items-center justify-center gap-3 rounded-full bg-grafito px-6 py-4 text-sm font-medium tracking-wide text-hueso transition-all duration-500 ease-seda hover:bg-black hover:shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)]"
-        >
-          Solicitar mi pedido
-          <svg viewBox="0 0 16 16" className="h-4 w-4 transition-transform duration-500 ease-seda group-hover:translate-x-1" aria-hidden>
-            <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.3" />
-          </svg>
-        </a>
-      )}
+      <a
+        href={enlace}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group mt-6 flex w-full items-center justify-center gap-3 rounded-full bg-grafito px-6 py-4 text-sm font-medium tracking-wide text-hueso transition-all duration-500 ease-seda hover:bg-black hover:shadow-[0_18px_40px_-20px_rgba(0,0,0,0.6)]"
+      >
+        Solicitar mi pedido
+        <svg viewBox="0 0 16 16" className="h-4 w-4 transition-transform duration-500 ease-seda group-hover:translate-x-1" aria-hidden>
+          <path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.3" />
+        </svg>
+      </a>
       <p className="mt-3 text-center text-[0.7rem] text-piedra">Te confirmamos disponibilidad y pago por WhatsApp.</p>
     </div>
   );

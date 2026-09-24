@@ -158,8 +158,6 @@ export const BOTAS: (OpcionAjuste & { id: Bota })[] = [
 /** Bota con la que se muestra cada modelo al elegirlo. */
 export const botaDelModelo = (m: Modelo): Bota => (m.pantalon === "ancho" ? "ancha" : "recta");
 
-/** Confección a medida: se patrona desde las medidas que envía la clienta. */
-export const RECARGO_A_MEDIDA = 18;
 
 /** Bordado personalizado: la clienta lo describe con sus palabras y se cotiza aparte. */
 export const BORDADO = {

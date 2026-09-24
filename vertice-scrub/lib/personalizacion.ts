@@ -3,7 +3,6 @@ import {
   BOTAS,
   botaDelModelo,
   MODELOS,
-  RECARGO_A_MEDIDA,
   TALLAS,
   TELAS,
   formatearPrecio,
@@ -13,20 +12,11 @@ import {
   type Tela,
 } from "./catalogo";
 
-export interface Medidas {
-  busto: string;
-  cintura: string;
-  cadera: string;
-  estatura: string;
-}
-
 export interface Seleccion {
   modeloId: string;
   telaId: string;
   colorId: string;
   tallaId: string;
-  aMedida: boolean;
-  medidas: Medidas;
   botaId: string;
   bordado: string; // descripción libre del bordado; se cotiza aparte
 }
@@ -36,8 +26,6 @@ export type Accion =
   | { tipo: "tela"; id: string }
   | { tipo: "color"; id: string }
   | { tipo: "talla"; id: string }
-  | { tipo: "aMedida"; valor: boolean }
-  | { tipo: "medida"; campo: keyof Medidas; valor: string }
   | { tipo: "bota"; id: string }
   | { tipo: "bordado"; valor: string };
 
@@ -46,8 +34,6 @@ export const seleccionInicial: Seleccion = {
   telaId: TELAS[0].id,
   colorId: TELAS[0].colores[1].id,
   tallaId: "M",
-  aMedida: false,
-  medidas: { busto: "", cintura: "", cadera: "", estatura: "" },
   botaId: botaDelModelo(MODELOS[0]),
   bordado: "",
 };
@@ -72,11 +58,7 @@ export function reducer(estado: Seleccion, accion: Accion): Seleccion {
     case "color":
       return { ...estado, colorId: accion.id };
     case "talla":
-      return { ...estado, tallaId: accion.id, aMedida: false };
-    case "aMedida":
-      return { ...estado, aMedida: accion.valor };
-    case "medida":
-      return { ...estado, medidas: { ...estado.medidas, [accion.campo]: accion.valor.replace(/[^\d]/g, "").slice(0, 3) } };
+      return { ...estado, tallaId: accion.id };
     case "bota":
       return { ...estado, botaId: accion.id };
     case "bordado":
@@ -100,7 +82,6 @@ export interface Resumen {
   bota: OpcionAjuste;
   lineas: LineaPrecio[];
   total: number;
-  medidasCompletas: boolean;
 }
 
 /** Deriva todo lo que necesita la UI (objetos del catálogo, desglose y total) de la selección. */
@@ -111,13 +92,9 @@ export function resumir(s: Seleccion): Resumen {
   const bota = buscar(BOTAS, s.botaId);
 
   const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre} · ${tela.nombre}`, importe: tela.precio }];
-  // Talla grande (2XL en adelante). A medida se usa la talla que corresponde al busto indicado.
-  const tallaId = s.aMedida ? tallaSugerida(Number(s.medidas.busto)) : s.tallaId;
-  const recargoTalla = TALLAS.find((t) => t.id === tallaId)?.recargo ?? 0;
-  if (recargoTalla) lineas.push({ concepto: `Talla ${tallaId}`, importe: recargoTalla });
-  if (s.aMedida) lineas.push({ concepto: "Patronaje a medida", importe: RECARGO_A_MEDIDA });
-
-  const medidasCompletas = Object.values(s.medidas).every((v) => Number(v) > 0);
+  // Talla grande (2XL en adelante)
+  const recargoTalla = TALLAS.find((t) => t.id === s.tallaId)?.recargo ?? 0;
+  if (recargoTalla) lineas.push({ concepto: `Talla ${s.tallaId}`, importe: recargoTalla });
 
   return {
     modelo,
@@ -126,22 +103,11 @@ export function resumir(s: Seleccion): Resumen {
     bota,
     lineas,
     total: lineas.reduce((suma, l) => suma + l.importe, 0),
-    medidasCompletas,
   };
-}
-
-/** Sugiere una talla a partir del contorno de busto (cm): la primera que lo cubre; entre dos tallas, la mayor. */
-export function tallaSugerida(busto: number): string | null {
-  if (!busto) return null;
-  const talla = TALLAS.find((t) => busto <= t.busto) ?? TALLAS[TALLAS.length - 1];
-  return talla.id;
 }
 
 /** Mensaje de pedido listo para enviar por WhatsApp. */
 export function mensajePedido(s: Seleccion, r: Resumen): string {
-  const talla = s.aMedida
-    ? `A medida — busto ${s.medidas.busto} cm, cintura ${s.medidas.cintura} cm, cadera ${s.medidas.cadera} cm, estatura ${s.medidas.estatura} cm`
-    : s.tallaId;
   const bordado = s.bordado.trim();
 
   return [
@@ -149,7 +115,7 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
     "",
     `• Modelo: ${r.modelo.nombre}`,
     `• Tela: ${r.tela.nombre} — ${r.color.nombre}`,
-    `• Talla: ${talla}`,
+    `• Talla: ${s.tallaId}`,
     `• Pantalón: ${r.bota.nombre}`,
     `• Bordado personalizado: ${bordado ? `${bordado} (a cotizar)` : "Sin bordado"}`,
     "",

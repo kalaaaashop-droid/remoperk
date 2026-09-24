@@ -13,7 +13,7 @@ const VALORES = [
   },
   {
     titulo: "Entalle preciso",
-    texto: "Patrones propios en seis tallas, con pantalón de bota ancha o recta. O, si lo prefieres, a tu medida.",
+    texto: "Patrones propios en siete tallas, con pantalón de bota ancha o recta. Y si buscas otro diseño, lo confeccionamos desde tu imagen de referencia.",
   },
 ];
 

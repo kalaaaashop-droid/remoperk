@@ -4,6 +4,7 @@ import { useMemo, useReducer } from "react";
 import { formatearPrecio, type Bota } from "@/lib/catalogo";
 import { reducer, resumir, seleccionInicial } from "@/lib/personalizacion";
 import { BarraMovil } from "./BarraMovil";
+import { CotizarModelo } from "./CotizarModelo";
 import { PanelResumen } from "./PanelResumen";
 import { Seccion } from "./Seccion";
 import { SelectorBordado } from "./SelectorBordado";
@@ -97,6 +98,9 @@ export function Configurador() {
 
         <Seccion id="talla" paso={3} titulo="Talla y pantalón" subtitulo="Un buen uniforme empieza por un buen ajuste.">
           <SelectorTalla seleccion={seleccion} dispatch={dispatch} />
+          <div className="mt-10">
+            <CotizarModelo />
+          </div>
         </Seccion>
 
         <Seccion id="bordado" paso={4} titulo="Bordado personalizado" subtitulo="Opcional. Descríbelo y te lo cotizamos. También bordamos uniformes universitarios.">
