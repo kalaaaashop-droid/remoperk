@@ -7,7 +7,7 @@ Además:
   - endereza la prenda: centra cada fila sobre un mismo eje vertical y suaviza los laterales.
 
 Uso:
-  python3 scripts/recortar-foto.py foto.png salida.webp --tono 150 2 --caderas 748 905 --enderezar   (Solsticio, rosa)
+  python3 scripts/recortar-foto.py foto.png salida.webp --tono 150 2 --caderas 748 905 --enderezar   (Almendra, rosa)
   python3 scripts/recortar-foto.py foto.png salida.webp --tono 120 155                                (Aurora, morado)
 --tono: rango de tono de la tela en OpenCV (0-179); si el inicio es mayor que el fin, el rango da la vuelta por el rojo.
 --caderas: filas (px) donde rellenar huecos de manos en los laterales del pantalón.
