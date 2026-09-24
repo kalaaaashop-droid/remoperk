@@ -124,6 +124,10 @@ export function resumir(s: Seleccion): Resumen {
   const tipografia = buscar(BORDADO.tipografias, s.bordado.tipografiaId);
 
   const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre} · ${tela.nombre}`, importe: tela.precio }];
+  // Talla grande (2XL en adelante). A medida se usa la talla que corresponde al busto indicado.
+  const tallaId = s.aMedida ? tallaSugerida(Number(s.medidas.busto)) : s.tallaId;
+  const recargoTalla = TALLAS.find((t) => t.id === tallaId)?.recargo ?? 0;
+  if (recargoTalla) lineas.push({ concepto: `Talla ${tallaId}`, importe: recargoTalla });
   if (s.aMedida) lineas.push({ concepto: "Patronaje a medida", importe: RECARGO_A_MEDIDA });
   if (s.bordado.nombre.trim()) lineas.push({ concepto: "Bordado de nombre", importe: BORDADO.recargoNombre });
   if (s.bordado.especialidad) lineas.push({ concepto: "Bordado de especialidad", importe: BORDADO.recargoEspecialidad });

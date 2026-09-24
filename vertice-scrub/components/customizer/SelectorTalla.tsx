@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type Dispatch } from "react";
-import { BOTAS, RECARGO_A_MEDIDA, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
+import { BOTAS, RECARGO_A_MEDIDA, RECARGO_TALLA_GRANDE, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
 import { tallaSugerida, type Accion, type Medidas, type Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -77,6 +77,9 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
             <p className="animate-aparecer rounded-xl bg-arena/60 px-4 py-3 text-sm">
               Por tu contorno de busto, tu referencia sería una <strong>{sugerida}</strong>. Ajustaremos el resto del
               patrón a tus medidas.
+              {TALLAS.find((t) => t.id === sugerida)?.recargo
+                ? ` Al ser talla grande, se suma el recargo de ${formatearPrecio(RECARGO_TALLA_GRANDE)}.`
+                : ""}
             </p>
           )}
         </div>
@@ -96,6 +99,9 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
               </button>
             ))}
           </div>
+          <p className="text-xs text-topo">
+            Desde la talla 2XL el conjunto tiene un recargo de <strong className="font-semibold text-grafito">+{formatearPrecio(RECARGO_TALLA_GRANDE)}</strong>.
+          </p>
 
           <button
             type="button"

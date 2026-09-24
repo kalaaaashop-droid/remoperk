@@ -53,6 +53,7 @@ export interface Talla {
   busto: number;
   cadera: number;
   cintura: number;
+  recargo?: number; // tallas grandes: se suma al precio del conjunto
 }
 
 export interface OpcionAjuste {
@@ -134,14 +135,17 @@ export const TELAS: Tela[] = [
   },
 ];
 
+/** A partir de la 2XL el conjunto sube este importe. */
+export const RECARGO_TALLA_GRANDE = 6;
+
 export const TALLAS: Talla[] = [
   { id: "S", busto: 90, cadera: 94, cintura: 66 },
   { id: "M", busto: 94, cadera: 98, cintura: 72 },
   { id: "L", busto: 98, cadera: 102, cintura: 74 },
   { id: "XL", busto: 102, cadera: 106, cintura: 78 },
-  { id: "2XL", busto: 108, cadera: 112, cintura: 82 },
-  { id: "3XL", busto: 114, cadera: 118, cintura: 94 },
-  { id: "4XL", busto: 120, cadera: 124, cintura: 100 },
+  { id: "2XL", busto: 108, cadera: 112, cintura: 82, recargo: RECARGO_TALLA_GRANDE },
+  { id: "3XL", busto: 114, cadera: 118, cintura: 94, recargo: RECARGO_TALLA_GRANDE },
+  { id: "4XL", busto: 120, cadera: 124, cintura: 100, recargo: RECARGO_TALLA_GRANDE },
 ];
 
 export type Bota = "ancha" | "recta";
