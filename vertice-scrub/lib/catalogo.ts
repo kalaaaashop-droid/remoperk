@@ -72,6 +72,7 @@ export const MODELOS: Modelo[] = [
     pantalon: "ancho",
     disponibilidad: "bajo-pedido",
     detalles: ["Manga kimono sin costura de hombro", "Bolsillos cargo con solapa", "Abertura lateral en el bajo"],
+    foto: { src: "/modelos/aurora.webp", ancho: 490, alto: 851 },
   },
   {
     id: "solsticio",

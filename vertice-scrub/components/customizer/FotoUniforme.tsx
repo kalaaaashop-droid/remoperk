@@ -14,30 +14,42 @@ interface Props {
 export function FotoUniforme({ foto, nombreModelo, color }: Props) {
   const mascara = `url("${foto.src}")`;
 
+  // La foto encaja en su caja sin deformarse: ancho = el menor entre el ancho disponible
+  // y el que corresponde a la altura disponible (unidades de contenedor cqw/cqh).
+  const proporcion = foto.ancho / foto.alto;
+
   return (
     <div
-      className="animate-aparecer relative mx-auto h-full max-w-full [isolation:isolate]"
-      style={{ aspectRatio: `${foto.ancho} / ${foto.alto}` }}
+      className="flex h-full w-full items-end justify-center"
+      style={{ containerType: "size" }}
     >
       <div
-        aria-hidden
-        className="absolute inset-0"
+        className="animate-aparecer relative [isolation:isolate]"
         style={{
-          backgroundColor: color,
-          transition: "background-color 900ms var(--ease-seda)",
-          maskImage: mascara,
-          WebkitMaskImage: mascara,
-          maskSize: "100% 100%",
-          WebkitMaskSize: "100% 100%",
+          aspectRatio: `${foto.ancho} / ${foto.alto}`,
+          width: `min(100cqw, ${proporcion} * 100cqh)`,
         }}
-      />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={foto.src}
-        alt={`Uniforme ${nombreModelo}`}
-        className="absolute inset-0 h-full w-full mix-blend-multiply select-none"
-        draggable={false}
-      />
+      >
+        <div
+          aria-hidden
+          className="absolute inset-0"
+          style={{
+            backgroundColor: color,
+            transition: "background-color 900ms var(--ease-seda)",
+            maskImage: mascara,
+            WebkitMaskImage: mascara,
+            maskSize: "100% 100%",
+            WebkitMaskSize: "100% 100%",
+          }}
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={foto.src}
+          alt={`Uniforme ${nombreModelo}`}
+          className="absolute inset-0 h-full w-full mix-blend-multiply select-none"
+          draggable={false}
+        />
+      </div>
     </div>
   );
 }
