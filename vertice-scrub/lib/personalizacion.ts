@@ -32,7 +32,7 @@ export type Accion =
 export const seleccionInicial: Seleccion = {
   modeloId: MODELOS[0].id,
   telaId: TELAS[0].id,
-  colorId: TELAS[0].colores[1].id,
+  colorId: "verde-oliva",
   tallaId: "M",
   botaId: botaDelModelo(MODELOS[0]),
   bordado: "",

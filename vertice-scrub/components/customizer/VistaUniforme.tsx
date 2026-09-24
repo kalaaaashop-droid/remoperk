@@ -249,7 +249,8 @@ export function VistaUniforme({ escote, manga, bota, pantalon, color, textura }:
 
       {/* key: al cambiar de modelo la silueta se reconstruye con un fundido suave */}
       <g key={`${escote}-${manga}-${pantalon}-${bota}`} className="animate-aparecer">
-        <g className="tinte" style={{ fill: color }}>
+        {/* Contorno fino: separa del fondo los colores muy claros (blanco, rosa bebé) */}
+        <g className="tinte" style={{ fill: color }} stroke="rgba(42,40,38,0.18)" strokeWidth={1} strokeLinejoin="round">
           <Silueta escote={escote} manga={manga} pantalon={pantalon} bota={bota} />
         </g>
         {textura !== "lisa" && (
