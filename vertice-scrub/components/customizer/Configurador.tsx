@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useReducer } from "react";
-import { formatearPrecio } from "@/lib/catalogo";
+import { formatearPrecio, type Bota } from "@/lib/catalogo";
 import { reducer, resumir, seleccionInicial } from "@/lib/personalizacion";
 import { BarraMovil } from "./BarraMovil";
 import { PanelResumen } from "./PanelResumen";
@@ -53,6 +53,7 @@ export function Configurador() {
                 <VistaUniforme
                   escote={modelo.escote}
                   manga={modelo.manga}
+                bota={resumen.bota.id as Bota}
                   pantalon={modelo.pantalon}
                   color={color.hex}
                   textura={tela.textura}
@@ -113,7 +114,7 @@ export function Configurador() {
           <SelectorTela telaId={seleccion.telaId} colorId={seleccion.colorId} dispatch={dispatch} />
         </Seccion>
 
-        <Seccion id="talla" paso={3} titulo="Talla y entalle" subtitulo="Un buen uniforme empieza por un buen ajuste.">
+        <Seccion id="talla" paso={3} titulo="Talla y pantalón" subtitulo="Un buen uniforme empieza por un buen ajuste.">
           <SelectorTalla seleccion={seleccion} dispatch={dispatch} />
         </Seccion>
 

@@ -1,7 +1,7 @@
 import {
   BORDADO,
-  ENTALLES,
-  LARGOS,
+  BOTAS,
+  botaDelModelo,
   MODELOS,
   RECARGO_A_MEDIDA,
   TALLAS,
@@ -27,8 +27,7 @@ export interface Seleccion {
   tallaId: string;
   aMedida: boolean;
   medidas: Medidas;
-  entalleId: string;
-  largoId: string;
+  botaId: string;
   bordado: {
     nombre: string;
     especialidad: string;
@@ -44,8 +43,7 @@ export type Accion =
   | { tipo: "talla"; id: string }
   | { tipo: "aMedida"; valor: boolean }
   | { tipo: "medida"; campo: keyof Medidas; valor: string }
-  | { tipo: "entalle"; id: string }
-  | { tipo: "largo"; id: string }
+  | { tipo: "bota"; id: string }
   | { tipo: "bordado"; campo: keyof Seleccion["bordado"]; valor: string };
 
 export const seleccionInicial: Seleccion = {
@@ -55,8 +53,7 @@ export const seleccionInicial: Seleccion = {
   tallaId: "M",
   aMedida: false,
   medidas: { pecho: "", cintura: "", cadera: "", estatura: "" },
-  entalleId: "regular",
-  largoId: "regular",
+  botaId: botaDelModelo(MODELOS[0]),
   bordado: { nombre: "", especialidad: "", hiloId: BORDADO.hilos[0].id, tipografiaId: BORDADO.tipografias[0].id },
 };
 
@@ -65,9 +62,8 @@ export function reducer(estado: Seleccion, accion: Accion): Seleccion {
     case "modelo": {
       const modelo = buscar(MODELOS, accion.id);
       const tela = modelo.colorInicial && TELAS.find((t) => t.colores.some((c) => c.id === modelo.colorInicial));
-      return tela
-        ? { ...estado, modeloId: modelo.id, telaId: tela.id, colorId: modelo.colorInicial! }
-        : { ...estado, modeloId: modelo.id };
+      const base = { ...estado, modeloId: modelo.id, botaId: botaDelModelo(modelo) };
+      return tela ? { ...base, telaId: tela.id, colorId: modelo.colorInicial! } : base;
     }
     case "tela": {
       // Cada tela tiene su propia carta de colores: si el color actual no existe en la nueva tela,
@@ -86,10 +82,8 @@ export function reducer(estado: Seleccion, accion: Accion): Seleccion {
       return { ...estado, aMedida: accion.valor };
     case "medida":
       return { ...estado, medidas: { ...estado.medidas, [accion.campo]: accion.valor.replace(/[^\d]/g, "").slice(0, 3) } };
-    case "entalle":
-      return { ...estado, entalleId: accion.id };
-    case "largo":
-      return { ...estado, largoId: accion.id };
+    case "bota":
+      return { ...estado, botaId: accion.id };
     case "bordado": {
       const valor = accion.campo === "nombre" ? accion.valor.slice(0, BORDADO.maxCaracteres) : accion.valor;
       return { ...estado, bordado: { ...estado.bordado, [accion.campo]: valor } };
@@ -110,8 +104,7 @@ export interface Resumen {
   modelo: Modelo;
   tela: Tela;
   color: Color;
-  entalle: OpcionAjuste;
-  largo: OpcionAjuste;
+  bota: OpcionAjuste;
   hilo: Color;
   tipografia: (typeof BORDADO.tipografias)[number];
   lineas: LineaPrecio[];
@@ -124,14 +117,12 @@ export function resumir(s: Seleccion): Resumen {
   const modelo = buscar(MODELOS, s.modeloId);
   const tela = buscar(TELAS, s.telaId);
   const color = buscar(tela.colores, s.colorId);
-  const entalle = buscar(ENTALLES, s.entalleId);
-  const largo = buscar(LARGOS, s.largoId);
+  const bota = buscar(BOTAS, s.botaId);
   const hilo = buscar(BORDADO.hilos, s.bordado.hiloId);
   const tipografia = buscar(BORDADO.tipografias, s.bordado.tipografiaId);
 
   const lineas: LineaPrecio[] = [{ concepto: `Conjunto ${modelo.nombre} · ${tela.nombre}`, importe: tela.precio }];
   if (s.aMedida) lineas.push({ concepto: "Patronaje a medida", importe: RECARGO_A_MEDIDA });
-  else if (largo.recargo) lineas.push({ concepto: `Largo ${largo.nombre}`, importe: largo.recargo });
   if (s.bordado.nombre.trim()) lineas.push({ concepto: "Bordado de nombre", importe: BORDADO.recargoNombre });
   if (s.bordado.especialidad) lineas.push({ concepto: "Bordado de especialidad", importe: BORDADO.recargoEspecialidad });
 
@@ -141,8 +132,7 @@ export function resumir(s: Seleccion): Resumen {
     modelo,
     tela,
     color,
-    entalle,
-    largo,
+    bota,
     hilo,
     tipografia,
     lineas,
@@ -162,7 +152,7 @@ export function tallaSugerida(pecho: number): string | null {
 export function mensajePedido(s: Seleccion, r: Resumen): string {
   const talla = s.aMedida
     ? `A medida — pecho ${s.medidas.pecho} cm, cintura ${s.medidas.cintura} cm, cadera ${s.medidas.cadera} cm, estatura ${s.medidas.estatura} cm`
-    : `${s.tallaId} · largo ${r.largo.nombre}`;
+    : s.tallaId;
   const bordado = [
     s.bordado.nombre.trim() && `"${s.bordado.nombre.trim()}"`,
     s.bordado.especialidad,
@@ -174,7 +164,7 @@ export function mensajePedido(s: Seleccion, r: Resumen): string {
     `• Modelo: ${r.modelo.nombre}`,
     `• Tela: ${r.tela.nombre} — ${r.color.nombre}`,
     `• Talla: ${talla}`,
-    `• Entalle: ${r.entalle.nombre}`,
+    `• Pantalón: ${r.bota.nombre}`,
     `• Bordado: ${bordado.length ? `${bordado.join(" · ")} (hilo ${r.hilo.nombre}, letra ${r.tipografia.nombre})` : "Sin bordado"}`,
     "",
     `Total estimado: ${formatearPrecio(r.total)}`,

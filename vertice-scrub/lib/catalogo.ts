@@ -143,17 +143,16 @@ export const TALLAS: Talla[] = [
   { id: "XXL", pecho: [108, 115], cintura: [90, 97], cadera: [116, 123] },
 ];
 
-export const ENTALLES: OpcionAjuste[] = [
-  { id: "entallado", nombre: "Entallado", descripcion: "Sigue la silueta. Holgura de 4 cm.", recargo: 0 },
-  { id: "regular", nombre: "Regular", descripcion: "Nuestro patrón base. Holgura de 8 cm.", recargo: 0 },
-  { id: "relajado", nombre: "Relajado", descripcion: "Más libertad de movimiento. Holgura de 12 cm.", recargo: 0 },
+export type Bota = "ancha" | "recta";
+
+/** Corte de la pierna del pantalón. */
+export const BOTAS: (OpcionAjuste & { id: Bota })[] = [
+  { id: "ancha", nombre: "Bota ancha", descripcion: "Pierna amplia con caída fluida.", recargo: 0 },
+  { id: "recta", nombre: "Bota recta", descripcion: "Pierna recta de ancho clásico.", recargo: 0 },
 ];
 
-export const LARGOS: OpcionAjuste[] = [
-  { id: "petite", nombre: "Petite", descripcion: "Menos de 1,60 m · largo −5 cm", recargo: 6 },
-  { id: "regular", nombre: "Regular", descripcion: "1,60 – 1,75 m", recargo: 0 },
-  { id: "tall", nombre: "Tall", descripcion: "Más de 1,75 m · largo +6 cm", recargo: 6 },
-];
+/** Bota con la que se muestra cada modelo al elegirlo. */
+export const botaDelModelo = (m: Modelo): Bota => (m.pantalon === "ancho" ? "ancha" : "recta");
 
 /** Confección a medida: se patrona desde las medidas que envía la clienta. */
 export const RECARGO_A_MEDIDA = 18;

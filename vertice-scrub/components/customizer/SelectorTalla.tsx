@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, type Dispatch } from "react";
-import { ENTALLES, LARGOS, RECARGO_A_MEDIDA, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
+import { BOTAS, RECARGO_A_MEDIDA, TALLAS, formatearPrecio, type OpcionAjuste } from "@/lib/catalogo";
 import { tallaSugerida, type Accion, type Medidas, type Seleccion } from "@/lib/personalizacion";
 
 interface Props {
@@ -150,8 +150,7 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
                 </table>
               </div>
               <p className="mt-3 text-xs leading-relaxed text-piedra">
-                Medidas del cuerpo, no de la prenda. Si estás entre dos tallas, elige la mayor con entalle
-                «Entallado», o la menor con «Relajado».
+                Medidas del cuerpo, no de la prenda. Si estás entre dos tallas, elige la mayor.
               </p>
             </div>
           </div>
@@ -159,19 +158,11 @@ export function SelectorTalla({ seleccion, dispatch }: Props) {
       )}
 
       <GrupoAjuste
-        titulo="Entalle"
-        opciones={ENTALLES}
-        valor={seleccion.entalleId}
-        onChange={(id) => dispatch({ tipo: "entalle", id })}
+        titulo="Pantalón"
+        opciones={BOTAS}
+        valor={seleccion.botaId}
+        onChange={(id) => dispatch({ tipo: "bota", id })}
       />
-      {!seleccion.aMedida && (
-        <GrupoAjuste
-          titulo="Largo de pierna y manga"
-          opciones={LARGOS}
-          valor={seleccion.largoId}
-          onChange={(id) => dispatch({ tipo: "largo", id })}
-        />
-      )}
     </div>
   );
 }
@@ -190,7 +181,7 @@ function GrupoAjuste({
   return (
     <div>
       <p className="eyebrow mb-3">{titulo}</p>
-      <div role="radiogroup" aria-label={titulo} className="grid gap-2 sm:grid-cols-3">
+      <div role="radiogroup" aria-label={titulo} className="grid grid-cols-2 gap-2">
         {opciones.map((o) => (
           <button
             key={o.id}
@@ -198,13 +189,13 @@ function GrupoAjuste({
             role="radio"
             aria-checked={o.id === valor}
             onClick={() => onChange(o.id)}
-            className="opcion flex items-center justify-between gap-3 px-4 py-3 sm:flex-col sm:items-start"
+            className="opcion flex flex-col items-start gap-1 px-4 py-3"
           >
             <span className="text-sm font-medium">
               {o.nombre}
               {o.recargo > 0 && <span className="ml-1.5 font-normal text-topo">+{formatearPrecio(o.recargo)}</span>}
             </span>
-            <span className="text-right text-xs leading-snug text-topo sm:text-left">{o.descripcion}</span>
+            <span className="text-xs leading-snug text-topo">{o.descripcion}</span>
           </button>
         ))}
       </div>

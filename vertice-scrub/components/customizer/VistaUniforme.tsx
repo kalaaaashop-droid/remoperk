@@ -1,8 +1,9 @@
-import type { Escote, Manga, Pantalon, Tela } from "@/lib/catalogo";
+import type { Bota, Escote, Manga, Pantalon, Tela } from "@/lib/catalogo";
 
 interface Props {
   escote: Escote;
   manga: Manga;
+  bota: Bota;
   pantalon: Pantalon;
   color: string;
   textura: Tela["textura"];
@@ -40,9 +41,13 @@ const CASACA: Record<Manga, string> = {
     "M172,34 C138,40 100,58 82,124 L110,138 Q130,144 136,166 L136,248 Q200,256 264,248 L264,166 Q270,144 290,138 L318,124 C300,58 262,40 228,34",
 };
 
-type PropsSilueta = { escote: Escote; manga: Manga; pantalon: Pantalon };
+type PropsSilueta = { escote: Escote; manga: Manga; pantalon: Pantalon; bota: Bota };
 
-function Silueta({ escote, manga, pantalon }: PropsSilueta) {
+/** Los pantalones de pretina elástica cambian de pierna según la bota elegida. */
+const piernas = (pantalon: Pantalon, bota: Bota): Pantalon =>
+  pantalon === "ancho" || pantalon === "recto" ? (bota === "ancha" ? "ancho" : "recto") : pantalon;
+
+function Silueta({ escote, manga, pantalon, bota }: PropsSilueta) {
   return (
     <>
       {/* Casaca */}
@@ -65,7 +70,7 @@ function Silueta({ escote, manga, pantalon }: PropsSilueta) {
         </>
       )}
       {/* Pantalón */}
-      <path d={PIERNAS[pantalon]} />
+      <path d={PIERNAS[piernas(pantalon, bota)]} />
       {pantalon === "jogger" && (
         <>
           <path d="M148,500 L188,500 L187,524 L150,524 Z" />
@@ -77,7 +82,9 @@ function Silueta({ escote, manga, pantalon }: PropsSilueta) {
 }
 
 /** Costuras, bolsillos y pespuntes: dan el aspecto de prenda confeccionada. */
-function Detalles({ escote, manga, pantalon }: PropsSilueta) {
+function Detalles({ escote, manga, pantalon, bota }: PropsSilueta) {
+  // Con bota recta, los detalles del lateral de la pierna se acercan al centro
+  const dx = bota === "recta" ? 13 : 0;
   const costura = { fill: "none", stroke: "rgba(0,0,0,0.22)", strokeWidth: 1.1 };
   const pespunte = { fill: "none", stroke: "rgba(255,255,255,0.32)", strokeWidth: 0.9, strokeDasharray: "2.5 2.5" };
 
@@ -173,16 +180,21 @@ function Detalles({ escote, manga, pantalon }: PropsSilueta) {
       {/* Bolsillos del pantalón */}
       {pantalon === "ancho" ? (
         <>
-          {/* Bolsillos cargo con solapa en el lateral del muslo */}
-          <path d="M132,368 L170,368 L170,424 L127,424 Z" {...costura} />
-          <path d="M268,368 L230,368 L230,424 L273,424 Z" {...costura} />
-          <path d="M131,384 L170,384 M269,384 L230,384" {...costura} />
-          <path d="M132,388 L167,388 M268,388 L233,388" {...pespunte} />
-          {/* Costura vertical que baja desde el bolsillo, y abertura lateral en el bajo */}
-          <path d="M150,424 L148,524 M250,424 L252,524" {...costura} />
-          <path d="M121,524 L124,494 M279,524 L276,494" {...costura} />
+          {/* Bolsillos cargo con solapa en el lateral del muslo, costura vertical y abertura en el bajo */}
+          {[
+            { lado: "izq", transform: `translate(${dx} 0)` },
+            { lado: "der", transform: `translate(${400 - dx} 0) scale(-1 1)` },
+          ].map(({ lado, transform }) => (
+            <g key={lado} transform={transform}>
+              <path d="M132,368 L170,368 L170,424 L127,424 Z" {...costura} />
+              <path d="M131,384 L170,384" {...costura} />
+              <path d="M132,388 L167,388" {...pespunte} />
+              <path d="M150,424 L148,524" {...costura} />
+              <path d="M121,524 L124,494" {...costura} />
+            </g>
+          ))}
           <path d="M150,284 Q160,304 142,316 M250,284 Q240,304 258,316" {...costura} />
-          <path d="M119,516 L187,516 M281,516 L213,516" {...pespunte} />
+          <path d={`M${119 + dx},516 L187,516 M${281 - dx},516 L213,516`} {...pespunte} />
         </>
       ) : pantalon === "cargo" ? (
         <>
@@ -208,7 +220,7 @@ const FUENTE_BORDADO = {
 /** Ancho disponible en el pecho (unidades SVG) para que el bordado no se salga de la casaca. */
 const ANCHO_BORDADO = 54;
 
-export function VistaUniforme({ escote, manga, pantalon, color, textura, bordado }: Props) {
+export function VistaUniforme({ escote, manga, bota, pantalon, color, textura, bordado }: Props) {
   const { anchoLetra, ...fuente } = FUENTE_BORDADO[bordado?.tipografia ?? "script"];
   const nombre = bordado?.tipografia === "sans" ? bordado.nombre.toUpperCase() : bordado?.nombre;
   const tamano = nombre ? Math.min(fuente.fontSize, ANCHO_BORDADO / (nombre.length * anchoLetra)) : fuente.fontSize;
@@ -242,19 +254,19 @@ export function VistaUniforme({ escote, manga, pantalon, color, textura, bordado
       <ellipse cx="200" cy="530" rx="90" ry="7" fill="#2a2826" opacity="0.12" filter="url(#sombra-suelo)" />
 
       {/* key: al cambiar de modelo la silueta se reconstruye con un fundido suave */}
-      <g key={`${escote}-${manga}-${pantalon}`} className="animate-aparecer">
+      <g key={`${escote}-${manga}-${pantalon}-${bota}`} className="animate-aparecer">
         <g className="tinte" style={{ fill: color }}>
-          <Silueta escote={escote} manga={manga} pantalon={pantalon} />
+          <Silueta escote={escote} manga={manga} pantalon={pantalon} bota={bota} />
         </g>
         {textura !== "lisa" && (
           <g fill={`url(#tex-${textura})`}>
-            <Silueta escote={escote} manga={manga} pantalon={pantalon} />
+            <Silueta escote={escote} manga={manga} pantalon={pantalon} bota={bota} />
           </g>
         )}
         <g fill="url(#volumen)">
-          <Silueta escote={escote} manga={manga} pantalon={pantalon} />
+          <Silueta escote={escote} manga={manga} pantalon={pantalon} bota={bota} />
         </g>
-        <Detalles escote={escote} manga={manga} pantalon={pantalon} />
+        <Detalles escote={escote} manga={manga} pantalon={pantalon} bota={bota} />
       </g>
 
       {bordado && (nombre || bordado.especialidad) && (

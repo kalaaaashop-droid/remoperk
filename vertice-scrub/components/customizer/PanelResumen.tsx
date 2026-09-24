@@ -7,7 +7,7 @@ interface Props {
 }
 
 export function PanelResumen({ seleccion, resumen }: Props) {
-  const { modelo, tela, color, entalle, largo, hilo, lineas, total, medidasCompletas } = resumen;
+  const { modelo, tela, color, bota, hilo, lineas, total, medidasCompletas } = resumen;
   const faltanMedidas = seleccion.aMedida && !medidasCompletas;
   const bordado = [seleccion.bordado.nombre.trim() && `«${seleccion.bordado.nombre.trim()}»`, seleccion.bordado.especialidad]
     .filter(Boolean)
@@ -17,8 +17,8 @@ export function PanelResumen({ seleccion, resumen }: Props) {
     ["Modelo", modelo.nombre],
     ["Tela", tela.nombre],
     ["Color", color.nombre],
-    ["Talla", seleccion.aMedida ? "A medida" : `${seleccion.tallaId} · ${largo.nombre}`],
-    ["Entalle", entalle.nombre],
+    ["Talla", seleccion.aMedida ? "A medida" : seleccion.tallaId],
+    ["Pantalón", bota.nombre],
     ["Bordado", bordado ? `${bordado} · hilo ${hilo.nombre.toLowerCase()}` : "Sin bordado"],
   ];
 
